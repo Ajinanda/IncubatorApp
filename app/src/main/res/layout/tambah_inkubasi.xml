@@ -38,7 +38,7 @@
             android:textSize="@dimen/reg_profile_ayam_text"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText" />
+            app:layout_constraintTop_toBottomOf="@+id/formNamaInkubasi" />
 
         <TextView
             android:id="@+id/textView10"
@@ -67,7 +67,7 @@
             app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/formNamaInkubasi"
             android:layout_width="0dp"
             android:layout_height="@dimen/reg_profile_form_height"
             android:layout_marginStart="8dp"
@@ -112,7 +112,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
         <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/formJumlahTelur"
             android:layout_width="0dp"
             android:layout_height="@dimen/reg_profile_form_height"
             android:layout_marginStart="8dp"
@@ -139,7 +139,7 @@
             android:text="@string/tombol_mulai_inkubasi"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText3" />
+            app:layout_constraintTop_toBottomOf="@+id/formJumlahTelur" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

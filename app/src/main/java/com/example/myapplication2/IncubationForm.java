@@ -32,6 +32,7 @@ public class IncubationForm extends AppCompatActivity {
         setContentView(R.layout.activity_incubation_form);
         setTitle("Form Inkubasi Baru");
 
+        EditText formNamaInkubasi = (EditText) findViewById(R.id.formNamaInkubasi);
         /*DatePickerDialog Untuk Memasukkan Tanggal Mulai Inkubasi*/
         tanggalInkubasiEditText = (EditText) findViewById(R.id.tanggalInkubasiEditText);
         tanggalInkubasiEditText.setOnClickListener(new View.OnClickListener() {
@@ -52,6 +53,13 @@ public class IncubationForm extends AppCompatActivity {
             }
         });
         /*DatePickerDialog*/
+
+        EditText formJumlahTelur = (EditText) findViewById(R.id.formJumlahTelur);
+
+        String namaInkubasi = formNamaInkubasi.getText().toString();
+        String tanggalInkubasi = tanggalInkubasiEditText.getText().toString();
+        String jenisUnggas = "";
+        String jumlahTelur = formJumlahTelur.getText().toString();
 
         /*Button untuk memulai proses inkubasi*/
         Button buttonStartIncubation = (Button) findViewById(R.id.buttonStartIncubation);
