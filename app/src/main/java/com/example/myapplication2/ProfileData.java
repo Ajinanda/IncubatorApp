@@ -19,6 +19,8 @@ public class ProfileData {
     public int rotationCycle;
 
     /**
+     * <h1>Profile Data Function</h1>
+     * digunakan untuk menentukan data yang akan dikirimkan ke dalam database.
      *
      * @param name - nama unggas yang profilnya akan dimasukkan ke database.
      * @param minTemp - minimum temperatur yang dibutuhkan untuk menginkubasi telur.
