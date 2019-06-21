@@ -19,6 +19,7 @@ public class ProfileData {
     public int rotationCycle;
 
     /**
+     * <h1>Fungsi Profile Data</h1>
      *
      * @param name - nama unggas yang profilnya akan dimasukkan ke database.
      * @param minTemp - minimum temperatur yang dibutuhkan untuk menginkubasi telur.
