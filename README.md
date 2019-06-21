@@ -18,8 +18,14 @@ Fungsi yang sedang dalam pengerjaan
 ~ Menghubungkan Form Inkubasi ke database untuk memulai inkubasi baru.<br>
 ~ Membuat Tabel UI untuk analisa data?????<br>
 
-# Tolong Masukkan Fungsi yang Ingin di Tambahkan di Bawah
+# Tolong Masukkan Fungsi Baru atau Perubahan untuk Fungsi di Atas
 Masukkan Fungsi baru dibawah sini : 
+<br>
+~ <br>
+~ <br>
+~ <br>
+
+Masukkan Perubahan Fungsi :
 <br>
 ~ <br>
 ~ <br>
