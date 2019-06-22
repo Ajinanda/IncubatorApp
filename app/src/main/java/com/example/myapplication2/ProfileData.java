@@ -2,7 +2,7 @@ package com.example.myapplication2;
 
 /**
  *<h1>Data Profile</h1>
- * class ini dibuat untuk mengirim data ke database firebase
+ * class ini dibuat untuk mengambil dan mengirim data profile unggas dari/ke database firebase
  *
  * @author Ajinanda Nugraha Putra
  * @version 0.1 (alpha)
