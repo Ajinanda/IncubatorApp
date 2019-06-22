@@ -1,19 +1,16 @@
 # IncubatorApp
 
-UI yang selesai :
+Fungsi yang Sudah Selesai
 <br>
 ~ Tampilan Inkubasi<br>
 ~ Tampilan Profil<br>
 ~ Form Inkubasi<br>
 ~ Form Profil<br>
-
-Form yang sudah disambungkan ke database
-<br>
-~ Form Profil<br>
+~ Menghubungkan Form Profil untuk memasukkan data ke database<br>
+~ Mengambil data dari database dan menampilkannya ke cardView tampilan Profile.<br>
 
 Fungsi yang sedang dalam pengerjaan
 <br>
-~ Mengambil data dari database dan menampilkannya ke cardView tampilan Profile.<br>
 ~ Mengambil data dari database dan menampilkannya di spinner di dalam Form Inkubasi.<br>
 ~ Mengambil data dari database dan menampilkannya ke cardView tampilan Inkubasi.<br>
 ~ Menghubungkan Form Inkubasi ke database untuk memulai inkubasi baru.<br>
