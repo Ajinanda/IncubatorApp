@@ -1,4 +1,12 @@
 # IncubatorApp
+<p>Aplikasi yang akan digunakan untuk mengontrol perangkat keras inkubator telur ayam. Aplikasi ini dibuat untuk menyelesaikan Tugas Akhir Politeknik Negeri Banjarmasin.</p>
+<br>
+Anggota Kelompok :
+<br>(C030316088) - Ajinanda Nugraha Putra
+<br>(----------) - 
+<br>(----------) - 
+
+# Progress
 
 Fungsi yang Sudah Selesai
 <br>
@@ -8,12 +16,12 @@ Fungsi yang Sudah Selesai
 ~ Form Profil<br>
 ~ Menghubungkan Form Profil untuk memasukkan data ke database<br>
 ~ Mengambil data dari database dan menampilkannya ke cardView tampilan Profile.<br>
+~ Menghubungkan Form Inkubasi ke database untuk memulai inkubasi baru.<br>
+~ Mengambil data dari database dan menampilkannya di spinner di dalam Form Inkubasi.<br>
 
 Fungsi yang sedang dalam pengerjaan
 <br>
-~ Mengambil data dari database dan menampilkannya di spinner di dalam Form Inkubasi.<br>
 ~ Mengambil data dari database dan menampilkannya ke cardView tampilan Inkubasi.<br>
-~ Menghubungkan Form Inkubasi ke database untuk memulai inkubasi baru.<br>
 ~ Membuat Tabel UI untuk analisa data?????<br>
 
 # Tolong Masukkan Fungsi Baru atau Perubahan untuk Fungsi di Atas
