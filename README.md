@@ -1,4 +1,12 @@
 # IncubatorApp
+<p>Aplikasi yang akan digunakan untuk mengontrol perangkat keras inkubator telur ayam. Aplikasi ini dibuat untuk menyelesaikan Tugas Akhir Politeknik Negeri Banjarmasin.</p>
+<br>
+Anggota Kelompok :
+<br>(C030316088) - Ajinanda Nugraha Putra
+<br>(----------) - 
+<br>(----------) - 
+
+#Progress
 
 Fungsi yang Sudah Selesai
 <br>
