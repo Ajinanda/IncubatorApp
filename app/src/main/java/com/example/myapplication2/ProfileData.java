@@ -21,7 +21,7 @@ public class ProfileData {
 
     /**
      * <h1>Fungsi Profile Data</h1>
-     * Fungsi ini digunakan untuk menentukan data profil apa yang akan
+     * Constructor ini digunakan untuk menentukan data profil apa yang akan
      * dikirim ke database.
      *
      * @param name - nama unggas yang profilnya akan dimasukkan ke database.

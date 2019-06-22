@@ -14,6 +14,16 @@ public class IncubationData {
     public String profilUnggas;
     public int jumlahTelur;
 
+    /**
+     * <h1>Fungsi Profile Data</h1>
+     * Constructor ini digunakan untuk menentukan data inkubasi apa yang akan
+     * dikirim ke database.
+     *
+     * @param namaInkubasi
+     * @param tanggalInkubasi
+     * @param profilUnggas
+     * @param jumlahTelur
+     */
     public IncubationData(String namaInkubasi, String tanggalInkubasi, String profilUnggas, int jumlahTelur) {
         this.namaInkubasi = namaInkubasi;
         this.tanggalInkubasi = tanggalInkubasi;
