@@ -10,6 +10,7 @@ package com.example.myapplication2;
  */
 
 public class ProfileData {
+
     public String name;
     public int minTemp;
     public int maxTemp;
@@ -39,6 +40,67 @@ public class ProfileData {
         this.timeIncubation = timeIncubation;
         this.timeRotation = timeRotation;
         this.rotationCycle = rotationCycle;
+    }
+
+
+    public String getNama(){
+        return name;
+    }
+
+    public int getMinTemp(){
+        return minTemp;
+    }
+
+    public int getMaxTemp(){
+        return maxTemp;
+    }
+
+    public int getMinMoist(){
+        return minMoist;
+    }
+
+    public int getTimeIncubation(){
+        return timeIncubation;
+    }
+
+    public int getTimeRotation(){
+        return timeRotation;
+    }
+
+    public int getRotationCycle(){
+        return rotationCycle;
+    }
+
+    public void setNama(String name) {
+        this.name = name;
+    }
+
+    public void setMinTemp(int minTemp) {
+        this.minTemp = minTemp;
+    }
+
+    public void setMaxTemp(int maxTemp) {
+        this.maxTemp = maxTemp;
+    }
+
+    public void setMinMoist(int minMoist) {
+        this.minMoist = minMoist;
+    }
+
+    public void setTimeIncubation(int timeIncubation) {
+        this.timeIncubation = timeIncubation;
+    }
+
+    public void setTimeRotation(int timeRotation) {
+        this.timeRotation = timeRotation;
+    }
+
+    public void setRotationCycle(int rotationCycle) {
+        this.rotationCycle = rotationCycle;
+    }
+
+    public ProfileData(){
+
     }
 
 }

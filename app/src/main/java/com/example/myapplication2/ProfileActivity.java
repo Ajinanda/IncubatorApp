@@ -2,18 +2,28 @@ package com.example.myapplication2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * <h1>Profile Unggas</h1>
@@ -29,6 +39,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 public class ProfileActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private RecyclerView mProfileDataList;
+    private DatabaseReference mDatabase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +49,13 @@ public class ProfileActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle("Profile Unggas");
+
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Profile");
+        mDatabase.keepSynced(true);
+
+        mProfileDataList=(RecyclerView)findViewById(R.id.profileRecyclerView);
+        //mProfileDataList.setHasFixedSize(true);
+        mProfileDataList.setLayoutManager(new LinearLayoutManager(this));
 
         /*CardView sebagai tombol untuk membuka tampilan incubation form*/
         CardView addProfileCardView = (CardView) findViewById(R.id.addProfileCardView);
@@ -56,6 +76,71 @@ public class ProfileActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseRecyclerOptions<ProfileData> options =
+                new FirebaseRecyclerOptions.Builder<ProfileData>()
+                .setQuery(mDatabase, ProfileData.class)
+                .build();
+        FirebaseRecyclerAdapter adapter = new FirebaseRecyclerAdapter<ProfileData, ProfileViewHolder>(options) {
+            @NonNull
+            @Override
+            public ProfileViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+                View view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.added_profile, parent, false);
+
+                return new ProfileViewHolder(view);
+            }
+
+
+            @Override
+            protected void onBindViewHolder(@NonNull ProfileViewHolder profileViewHolder, int i, @NonNull ProfileData profileData) {
+                profileViewHolder.setNama(profileData.getNama());
+                profileViewHolder.setMinTemp(profileData.getMinTemp());
+                profileViewHolder.setMaxTemp(profileData.getMaxTemp());
+                profileViewHolder.setMoist(profileData.getMinMoist());
+                profileViewHolder.setTimeIncubation(profileData.getTimeIncubation());
+            }
+        };
+        mProfileDataList.setAdapter(adapter);
+        adapter.startListening();
+    }
+
+    public static class ProfileViewHolder extends RecyclerView.ViewHolder{
+        View mView;
+        public ProfileViewHolder(View itemView){
+            super(itemView);
+            mView=(itemView);
+        }
+
+        public void setNama(String name){
+            TextView post_nama = (TextView) mView.findViewById(R.id.namaTextView);
+            post_nama.setText(name);
+        }
+
+        public void setMinTemp(int minTemp){
+            TextView post_Temp = (TextView) mView.findViewById(R.id.minTempTextView);
+            post_Temp.setText(minTemp+" C");
+        }
+
+        public void setMaxTemp(int maxTemp){
+            TextView post_Temp = (TextView) mView.findViewById(R.id.maxTempTextView);
+            post_Temp.setText(maxTemp+" C");
+        }
+
+        public void setMoist(int minMoist){
+            TextView post_minMoist = (TextView) mView.findViewById(R.id.moistTextView);
+            post_minMoist.setText(minMoist+" %");
+        }
+
+        public void setTimeIncubation(int timeIncubation){
+            TextView post_timeIncubation = (TextView) mView.findViewById(R.id.incubationTimeTextView);
+            post_timeIncubation.setText(timeIncubation+" Days");
+        }
     }
 
     @Override

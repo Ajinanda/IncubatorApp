@@ -13,6 +13,18 @@
         android:background="@drawable/cardview_border"
         android:padding="10dp">
 
+        <TextView
+            android:id="@+id/maxTempTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/namaTextView"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="4dp"
+            android:layout_toEndOf="@+id/minTempTextView"
+            android:layout_toRightOf="@+id/minTempTextView"
+            android:text="@string/temp" />
+
         <ImageView
             android:id="@+id/imageView4"
             android:layout_width="100dp"
@@ -21,7 +33,7 @@
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/namaTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -31,10 +43,10 @@
             android:text="@string/nama" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/minTempTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textView3"
+            android:layout_below="@+id/namaTextView"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="4dp"
@@ -43,10 +55,10 @@
             android:text="@string/temp" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/moistTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textView4"
+            android:layout_below="@+id/minTempTextView"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="4dp"
@@ -55,10 +67,10 @@
             android:text="@string/moist" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/incubationTimeTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textView5"
+            android:layout_below="@+id/moistTextView"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="4dp"
