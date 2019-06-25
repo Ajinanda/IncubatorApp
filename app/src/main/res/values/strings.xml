@@ -31,11 +31,20 @@
     <string name="nama_inkubasi_baru">Nama Inkubasi</string>
     <string name="tanggal_inkubasi">Tanggal Mulai Inkubasi</string>
     <string name="jenis_unggas">Jenis Unggas</string>
-    <string name="jumlah_telur">Jumlah Telur</string>
     <string name="tombol_mulai_inkubasi">Mulai Inkubasi</string>
     <string name="form_nama_inkubasi">Masukkan Nama</string>
     <string name="form_tanggal_inkubasi">DD/MM/YYYY</string>
     <string name="form_jenis_unggas">Pilih Jenis Unggas</string>
     <string name="form_jumlah_telur">Masukkan Jumlah Telur</string>
     <string name="title_activity_profile">ProfileActivity</string>
+
+    <!--Layar Stop Inkubasi -->
+    <string name="nama_inkubasi">Nama</string>
+    <string name="tanggal_inkubasi_">Tanggal Mulai</string>
+    <string name="jumlah_telur">Jumlah Telur</string>
+    <string name="temperatur_inkubator">Temperatur</string>
+    <string name="selesai_inkubasi">Inkubasi Selesai</string>
+    <string name="kelembapan">Kelembapan</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -10,21 +10,21 @@ Anggota Kelompok :
 
 ## Fungsi yang Sudah Selesai
 
-- [x] Tampilan Inkubasi<br>
-- [x] Tampilan Profil<br>
-- [x] Form Inkubasi<br>
-- [x] Form Profil<br>
-- [x] Menghubungkan Form Profil untuk memasukkan data ke database<br>
-- [x] Mengambil data dari database dan menampilkannya ke cardView tampilan Profile.<br>
-- [x] Menghubungkan Form Inkubasi ke database untuk memulai inkubasi baru.<br>
-- [x] Mengambil data dari database dan menampilkannya di spinner di dalam Form Inkubasi.<br>
+- [x] Tampilan Inkubasi
+- [x] Tampilan Profil
+- [x] Form Inkubasi
+- [x] Form Profil
+- [x] Menghubungkan Form Profil untuk memasukkan data ke database
+- [x] Mengambil data dari database dan menampilkannya ke cardView tampilan Profile.
+- [x] Menghubungkan Form Inkubasi ke database untuk memulai inkubasi baru.
+- [x] Mengambil data dari database dan menampilkannya di spinner di dalam Form Inkubasi.
+- [x] Mengambil data dari database dan menampilkannya ke cardView tampilan Inkubasi.
 
 ## Fungsi yang sedang dalam pengerjaan
 
-- [ ] Mengambil data dari database dan menampilkannya ke cardView tampilan Inkubasi.<br>
-- [ ] Membuat Tampilan Stop Inkubasi untuk mengakhiri proses inkubasi.<br>
-- [ ] Membuat Tampilan Edit Profile untuk mengubah Profile Unggas yang telah dibuat.<br>
-- [ ] Membuat Tabel UI untuk analisa data?????<br>
+- [ ] Membuat Tampilan Stop Inkubasi untuk mengakhiri proses inkubasi.
+- [ ] Membuat Tampilan Edit Profile untuk mengubah Profile Unggas yang telah dibuat.
+- [ ] Membuat Tabel UI untuk analisa data?????
 
 # Tolong Masukkan Fungsi Baru atau Perubahan untuk Fungsi di Atas
 ## Masukkan Fungsi baru dibawah sini :

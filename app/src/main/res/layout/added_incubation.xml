@@ -13,18 +13,6 @@
         android:background="@drawable/cardview_border"
         android:padding="10dp">
 
-        <TextView
-            android:id="@+id/maxTempTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/namaInkubasiTextView"
-            android:layout_marginStart="32dp"
-            android:layout_marginLeft="32dp"
-            android:layout_marginTop="4dp"
-            android:layout_toEndOf="@+id/tempInkubatorTextView"
-            android:layout_toRightOf="@+id/tempInkubatorTextView"
-            android:text="@string/temp" />
-
         <ImageView
             android:id="@+id/imageView4"
             android:layout_width="100dp"
@@ -46,10 +34,10 @@
             android:id="@+id/tempInkubatorTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/namaInkubasiTextView"
+            android:layout_below="@+id/tanggalInkubasiTextView"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="8dp"
             android:layout_toEndOf="@+id/imageView4"
             android:layout_toRightOf="@+id/imageView4"
             android:text="@string/temp" />
@@ -61,19 +49,19 @@
             android:layout_below="@+id/tempInkubatorTextView"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="8dp"
             android:layout_toEndOf="@+id/imageView4"
             android:layout_toRightOf="@+id/imageView4"
             android:text="@string/moist" />
 
         <TextView
-            android:id="@+id/incubationTimeTextView"
+            android:id="@+id/tanggalInkubasiTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/moistInkubatorTextView"
+            android:layout_below="@+id/namaInkubasiTextView"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="8dp"
             android:layout_toEndOf="@+id/imageView4"
             android:layout_toRightOf="@+id/imageView4"
             android:text="@string/t_incubation" />

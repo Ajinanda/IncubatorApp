@@ -118,12 +118,12 @@ public class ProfileActivity extends AppCompatActivity
         }
 
         public void setNama(String name){
-            TextView post_nama = (TextView) mView.findViewById(R.id.namaTextView);
+            TextView post_nama = (TextView) mView.findViewById(R.id.namaInkubasiTextView);
             post_nama.setText(name);
         }
 
         public void setMinTemp(int minTemp){
-            TextView post_Temp = (TextView) mView.findViewById(R.id.minTempTextView);
+            TextView post_Temp = (TextView) mView.findViewById(R.id.tempInkubatorTextView);
             post_Temp.setText(minTemp+" C");
         }
 
@@ -133,7 +133,7 @@ public class ProfileActivity extends AppCompatActivity
         }
 
         public void setMoist(int minMoist){
-            TextView post_minMoist = (TextView) mView.findViewById(R.id.moistTextView);
+            TextView post_minMoist = (TextView) mView.findViewById(R.id.moistInkubatorTextView);
             post_minMoist.setText(minMoist+" %");
         }
 

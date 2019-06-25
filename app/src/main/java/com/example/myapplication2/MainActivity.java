@@ -2,18 +2,28 @@ package com.example.myapplication2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * <h1>Layar Inkubasi/Layar Utama</h1>
@@ -31,6 +41,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private RecyclerView mProfileDataList;
+    private DatabaseReference mDatabase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +51,13 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle("Inkubasi");
+
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Inkubasi");
+        mDatabase.keepSynced(true);
+
+        mProfileDataList=(RecyclerView)findViewById(R.id.inkubasiRecyclerView);
+        //mProfileDataList.setHasFixedSize(true);
+        mProfileDataList.setLayoutManager(new LinearLayoutManager(this));
 
         /*CardView sebagai tombol untuk membuka tampilan incubation form*/
         CardView addIncubationCardView = (CardView) findViewById(R.id.addIncubationCardView);
@@ -59,6 +79,53 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseRecyclerOptions<IncubationData> options =
+                new FirebaseRecyclerOptions.Builder<IncubationData>()
+                        .setQuery(mDatabase, IncubationData.class)
+                        .build();
+        FirebaseRecyclerAdapter adapter = new FirebaseRecyclerAdapter<IncubationData, MainActivity.IncubationViewHolder>(options) {
+            @NonNull
+            @Override
+            public MainActivity.IncubationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+                View view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.added_incubation, parent, false);
+
+                return new MainActivity.IncubationViewHolder(view);
+            }
+
+
+            @Override
+            protected void onBindViewHolder(@NonNull MainActivity.IncubationViewHolder incubationViewHolder, int i, @NonNull IncubationData incubationData) {
+                incubationViewHolder.setNamaInkubasi(incubationData.getNamaInkubasi());
+                incubationViewHolder.setTanggalInkubasi(incubationData.getTanggalInkubasi());
+            }
+        };
+        mProfileDataList.setAdapter(adapter);
+        adapter.startListening();
+    }
+
+    public static class IncubationViewHolder extends RecyclerView.ViewHolder{
+        View mView;
+        public IncubationViewHolder(View itemView){
+            super(itemView);
+            mView=(itemView);
+        }
+
+        public void setNamaInkubasi(String namaInkubasi){
+            TextView post_nama = (TextView) mView.findViewById(R.id.namaInkubasiTextView);
+            post_nama.setText(namaInkubasi);
+        }
+
+        public void setTanggalInkubasi(String tanggalInkubasi){
+            TextView post_Temp = (TextView) mView.findViewById(R.id.tanggalInkubasiTextView);
+            post_Temp.setText(tanggalInkubasi);
+        }
     }
 
     @Override
