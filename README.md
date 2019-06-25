@@ -8,31 +8,33 @@ Anggota Kelompok :
 
 # Progress
 
-Fungsi yang Sudah Selesai
-<br>
-~ Tampilan Inkubasi<br>
-~ Tampilan Profil<br>
-~ Form Inkubasi<br>
-~ Form Profil<br>
-~ Menghubungkan Form Profil untuk memasukkan data ke database<br>
-~ Mengambil data dari database dan menampilkannya ke cardView tampilan Profile.<br>
-~ Menghubungkan Form Inkubasi ke database untuk memulai inkubasi baru.<br>
-~ Mengambil data dari database dan menampilkannya di spinner di dalam Form Inkubasi.<br>
+## Fungsi yang Sudah Selesai
 
-Fungsi yang sedang dalam pengerjaan
-<br>
-~ Mengambil data dari database dan menampilkannya ke cardView tampilan Inkubasi.<br>
-~ Membuat Tabel UI untuk analisa data?????<br>
+- [x] Tampilan Inkubasi<br>
+- [x] Tampilan Profil<br>
+- [x] Form Inkubasi<br>
+- [x] Form Profil<br>
+- [x] Menghubungkan Form Profil untuk memasukkan data ke database<br>
+- [x] Mengambil data dari database dan menampilkannya ke cardView tampilan Profile.<br>
+- [x] Menghubungkan Form Inkubasi ke database untuk memulai inkubasi baru.<br>
+- [x] Mengambil data dari database dan menampilkannya di spinner di dalam Form Inkubasi.<br>
+
+## Fungsi yang sedang dalam pengerjaan
+
+- [ ] Mengambil data dari database dan menampilkannya ke cardView tampilan Inkubasi.<br>
+- [ ] Membuat Tampilan Stop Inkubasi untuk mengakhiri proses inkubasi.<br>
+- [ ] Membuat Tampilan Edit Profile untuk mengubah Profile Unggas yang telah dibuat.<br>
+- [ ] Membuat Tabel UI untuk analisa data?????<br>
 
 # Tolong Masukkan Fungsi Baru atau Perubahan untuk Fungsi di Atas
-Masukkan Fungsi baru dibawah sini : 
-<br>
-~ <br>
-~ <br>
-~ <br>
+## Masukkan Fungsi baru dibawah sini :
 
-Masukkan Perubahan Fungsi :
-<br>
-~ <br>
-~ <br>
-~ <br>
+1. Add Fungsi 1
+1. Add Fungsi 2
+1. Add Fungsi 3 
+
+## Masukkan Perubahan Fungsi :
+
+1. Edit Fungsi 1
+1. Edit Fungsi 2
+1. Edit Fungsi 3
