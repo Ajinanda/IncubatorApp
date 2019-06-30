@@ -29,7 +29,7 @@ Anggota Kelompok :
 # Tolong Masukkan Fungsi Baru atau Perubahan untuk Fungsi di Atas
 ## Masukkan Fungsi baru dibawah sini :
 
-1. Add Fungsi 1
+1. Tombol Back di setiap halaman
 1. Add Fungsi 2
 1. Add Fungsi 3 
 
