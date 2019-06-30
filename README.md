@@ -38,3 +38,5 @@ Anggota Kelompok :
 1. Edit Fungsi 1
 1. Edit Fungsi 2
 1. Edit Fungsi 3
+
+Test Commit From Laptop
