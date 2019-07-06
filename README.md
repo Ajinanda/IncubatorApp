@@ -19,17 +19,20 @@ Anggota Kelompok :
 - [x] Menghubungkan Form Inkubasi ke database untuk memulai inkubasi baru.
 - [x] Mengambil data dari database dan menampilkannya di spinner di dalam Form Inkubasi.
 - [x] Mengambil data dari database dan menampilkannya ke cardView tampilan Inkubasi.
+- [x] Menambahkan Back Button pada tampilan form inkubasi dan form profile.
 
 ## Fungsi yang sedang dalam pengerjaan
 
 - [ ] Membuat Tampilan Stop Inkubasi untuk mengakhiri proses inkubasi.
-- [ ] Membuat Tampilan Edit Profile untuk mengubah Profile Unggas yang telah dibuat.
+- [ ] Membuat Tampilan Edit dan Hapus Profile untuk mengubah Profile Unggas yang telah dibuat.
 - [ ] Membuat Tabel UI untuk analisa data?????
+- [ ] OnClick CardView pada layar Inkubasi untuk membuka tampilan stop inkubasi.
+- [ ] OnClick CardView pada layar Profile untuk membuka tampilan edit atau hapus profile.
 
 # Tolong Masukkan Fungsi Baru atau Perubahan untuk Fungsi di Atas
 ## Masukkan Fungsi baru dibawah sini :
 
-1. Tombol Back di setiap halaman
+1. Add Fungsi 1
 1. Add Fungsi 2
 1. Add Fungsi 3 
 
@@ -38,5 +41,3 @@ Anggota Kelompok :
 1. Edit Fungsi 1
 1. Edit Fungsi 2
 1. Edit Fungsi 3
-
-Test Commit From Laptop

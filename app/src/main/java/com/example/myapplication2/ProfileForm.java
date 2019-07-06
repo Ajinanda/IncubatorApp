@@ -1,7 +1,9 @@
 package com.example.myapplication2;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,6 +11,7 @@ import android.widget.EditText;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 /**
  *<h1>Layar Form Profil</h1>
@@ -27,6 +30,8 @@ public class ProfileForm extends AppCompatActivity {
         setContentView(R.layout.activity_profile_form);
         setTitle("Form Profile Baru");
         Button buttonSubmitProfile = (Button) findViewById(R.id.buttonSubmitProfile);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         final EditText formName = (EditText) findViewById(R.id.formName);
         final EditText formMinTemp = (EditText) findViewById(R.id.formMinTemp);
@@ -72,4 +77,11 @@ public class ProfileForm extends AppCompatActivity {
         ProfileData newProfile = new ProfileData(name, minTempInt, maxTempInt, minMoistInt, timeIncubationInt, timeRotationInt, rotationCycleInt);
         databaseReference.child(newProfile.name).setValue(newProfile);
     }*/
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent myIntent = new Intent(getApplicationContext(), ProfileActivity.class);
+        startActivityForResult(myIntent,0);
+        return true;
+    }
 }
