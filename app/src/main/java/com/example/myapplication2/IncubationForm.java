@@ -3,6 +3,7 @@ package com.example.myapplication2;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -21,6 +22,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 /**
  *<h1>Layar Form Inkubasi</h1>
@@ -43,6 +45,9 @@ public class IncubationForm extends AppCompatActivity {
         setContentView(R.layout.activity_incubation_form);
         setTitle("Form Inkubasi Baru");
         databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         final EditText formNamaInkubasi = (EditText) findViewById(R.id.formNamaInkubasi);
         /*DatePickerDialog Untuk Memasukkan Tanggal Mulai Inkubasi*/
@@ -112,5 +117,12 @@ public class IncubationForm extends AppCompatActivity {
             }
         });
         /*Button*/
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent myIntent = new Intent(getApplicationContext(),MainActivity.class);
+        startActivityForResult(myIntent,0);
+        return true;
     }
 }

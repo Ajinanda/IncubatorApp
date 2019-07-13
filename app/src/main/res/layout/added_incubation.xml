@@ -2,6 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/incubatedEggCardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/cardview_border"
@@ -14,7 +15,7 @@
         android:padding="10dp">
 
         <ImageView
-            android:id="@+id/imageView4"
+            android:id="@+id/gambarUnggas"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:contentDescription="@string/gambar_unggas"
@@ -26,8 +27,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
-            android:layout_toEndOf="@+id/imageView4"
-            android:layout_toRightOf="@+id/imageView4"
+            android:layout_toEndOf="@+id/gambarUnggas"
+            android:layout_toRightOf="@+id/gambarUnggas"
             android:text="@string/nama" />
 
         <TextView
@@ -38,8 +39,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
-            android:layout_toEndOf="@+id/imageView4"
-            android:layout_toRightOf="@+id/imageView4"
+            android:layout_toEndOf="@+id/gambarUnggas"
+            android:layout_toRightOf="@+id/gambarUnggas"
             android:text="@string/temp" />
 
         <TextView
@@ -50,8 +51,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
-            android:layout_toEndOf="@+id/imageView4"
-            android:layout_toRightOf="@+id/imageView4"
+            android:layout_toEndOf="@+id/gambarUnggas"
+            android:layout_toRightOf="@+id/gambarUnggas"
             android:text="@string/moist" />
 
         <TextView
@@ -62,8 +63,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
-            android:layout_toEndOf="@+id/imageView4"
-            android:layout_toRightOf="@+id/imageView4"
+            android:layout_toEndOf="@+id/gambarUnggas"
+            android:layout_toRightOf="@+id/gambarUnggas"
             android:text="@string/t_incubation" />
 
     </RelativeLayout>

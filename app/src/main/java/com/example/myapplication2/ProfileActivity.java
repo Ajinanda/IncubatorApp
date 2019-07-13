@@ -41,6 +41,7 @@ public class ProfileActivity extends AppCompatActivity
 
     private RecyclerView mProfileDataList;
     private DatabaseReference mDatabase;
+    private FirebaseRecyclerAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,16 +77,15 @@ public class ProfileActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        fetch();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
+    private void fetch(){
         FirebaseRecyclerOptions<ProfileData> options =
                 new FirebaseRecyclerOptions.Builder<ProfileData>()
-                .setQuery(mDatabase, ProfileData.class)
-                .build();
-        FirebaseRecyclerAdapter adapter = new FirebaseRecyclerAdapter<ProfileData, ProfileViewHolder>(options) {
+                        .setQuery(mDatabase, ProfileData.class)
+                        .build();
+        mAdapter = new FirebaseRecyclerAdapter<ProfileData, ProfileViewHolder>(options) {
             @NonNull
             @Override
             public ProfileViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -106,8 +106,19 @@ public class ProfileActivity extends AppCompatActivity
                 profileViewHolder.setTimeIncubation(profileData.getTimeIncubation());
             }
         };
-        mProfileDataList.setAdapter(adapter);
-        adapter.startListening();
+        mProfileDataList.setAdapter(mAdapter);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAdapter.startListening();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mAdapter.stopListening();
     }
 
     public static class ProfileViewHolder extends RecyclerView.ViewHolder{
