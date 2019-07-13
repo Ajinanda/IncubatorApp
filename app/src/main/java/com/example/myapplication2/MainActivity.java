@@ -1,7 +1,9 @@
 package com.example.myapplication2;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -122,18 +124,29 @@ public class MainActivity extends AppCompatActivity
                 location = mAdapter.getRef(position).getKey();
                 incubationViewHolder.setNamaInkubasi(incubationData.getNamaInkubasi());
                 incubationViewHolder.setTanggalInkubasi(incubationData.getTanggalInkubasi());
+                incubationViewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.i("W4K","Click-"+position);
+                        Intent startIntent = new Intent(getApplicationContext(), CompleteIncubation.class);
+                        startIntent.putExtra("namaInkubasi", incubationData.getNamaInkubasi());
+                        startActivity(startIntent);
+
+                    }
+                });
             }
         };
         mRecyclerView.setAdapter(mAdapter);
     }
 
     public static class IncubationViewHolder extends RecyclerView.ViewHolder{
-        View mView;
+        public View mView;
         CardView cardView;
 
         public IncubationViewHolder(View itemView){
             super(itemView);
             mView=(itemView);
+            this.mView = mView;
             this.cardView= (CardView) mView.findViewById(R.id.incubatedEggCardView);
         }
 
@@ -147,6 +160,7 @@ public class MainActivity extends AppCompatActivity
             post_Temp.setText(tanggalInkubasi);
         }
     }
+
 
     @Override
     protected void onStop() {

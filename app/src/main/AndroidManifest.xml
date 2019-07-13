@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CompleteIncubation"></activity>
+        <activity android:name=".EditAndDeleteProfile"></activity>
+        <activity android:name=".CompleteIncubation" />
         <activity android:name=".IncubationResultActivity" />
         <activity
             android:name=".ProfileActivity"

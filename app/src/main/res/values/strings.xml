@@ -47,4 +47,8 @@
     <string name="kelembapan">Kelembapan</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Layar Edit dan hapus Profile -->
+    <string name="editButton">Edit</string>
+    <string name="deleteButton">Delete</string>
 </resources>
