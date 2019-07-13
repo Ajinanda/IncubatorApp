@@ -15,6 +15,8 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -41,8 +43,12 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private RecyclerView mProfileDataList;
-    private DatabaseReference mDatabase;
+
+    private RecyclerView mRecyclerView;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private DatabaseReference mDatabaseInkubasi;
+    private FirebaseRecyclerAdapter mAdapter;
+    private String location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,20 +58,26 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         setTitle("Inkubasi");
 
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Inkubasi");
-        mDatabase.keepSynced(true);
+        mDatabaseInkubasi = FirebaseDatabase.getInstance()
+                .getReference()
+                .child("Inkubasi");
+        mDatabaseInkubasi.keepSynced(true);
 
-        mProfileDataList=(RecyclerView)findViewById(R.id.inkubasiRecyclerView);
-        //mProfileDataList.setHasFixedSize(true);
-        mProfileDataList.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView=(RecyclerView)findViewById(R.id.inkubasiRecyclerView);
+        //mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         /*CardView sebagai tombol untuk membuka tampilan incubation form*/
         CardView addIncubationCardView = (CardView) findViewById(R.id.addIncubationCardView);
         addIncubationCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent startIntent = new Intent(getApplicationContext(), IncubationForm.class);
-                startActivity(startIntent);
+                try {
+                    Intent startIntent = new Intent(getApplicationContext(), IncubationForm.class);
+                    startActivity(startIntent);
+                } catch (Exception e) {
+
+                }
             }
         });
         /*CardView*/
@@ -79,16 +91,21 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        fetch();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        mAdapter.startListening();
+    }
+
+    private void fetch(){
         FirebaseRecyclerOptions<IncubationData> options =
                 new FirebaseRecyclerOptions.Builder<IncubationData>()
-                        .setQuery(mDatabase, IncubationData.class)
+                        .setQuery(mDatabaseInkubasi, IncubationData.class)
                         .build();
-        FirebaseRecyclerAdapter adapter = new FirebaseRecyclerAdapter<IncubationData, MainActivity.IncubationViewHolder>(options) {
+        mAdapter = new FirebaseRecyclerAdapter<IncubationData, MainActivity.IncubationViewHolder>(options) {
             @NonNull
             @Override
             public MainActivity.IncubationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -101,20 +118,23 @@ public class MainActivity extends AppCompatActivity
 
 
             @Override
-            protected void onBindViewHolder(@NonNull MainActivity.IncubationViewHolder incubationViewHolder, int i, @NonNull IncubationData incubationData) {
+            protected void onBindViewHolder(@NonNull MainActivity.IncubationViewHolder incubationViewHolder, final int position, @NonNull final IncubationData incubationData) {
+                location = mAdapter.getRef(position).getKey();
                 incubationViewHolder.setNamaInkubasi(incubationData.getNamaInkubasi());
                 incubationViewHolder.setTanggalInkubasi(incubationData.getTanggalInkubasi());
             }
         };
-        mProfileDataList.setAdapter(adapter);
-        adapter.startListening();
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     public static class IncubationViewHolder extends RecyclerView.ViewHolder{
         View mView;
+        CardView cardView;
+
         public IncubationViewHolder(View itemView){
             super(itemView);
             mView=(itemView);
+            this.cardView= (CardView) mView.findViewById(R.id.incubatedEggCardView);
         }
 
         public void setNamaInkubasi(String namaInkubasi){
@@ -126,6 +146,12 @@ public class MainActivity extends AppCompatActivity
             TextView post_Temp = (TextView) mView.findViewById(R.id.tanggalInkubasiTextView);
             post_Temp.setText(tanggalInkubasi);
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mAdapter.stopListening();
     }
 
     @Override
@@ -174,7 +200,8 @@ public class MainActivity extends AppCompatActivity
             Intent profileScreen = new Intent(getApplicationContext(), ProfileActivity.class);
             startActivity(profileScreen);
         } else if (id == R.id.nav_slideshow) {
-
+            Intent completeIncubation = new Intent(getApplicationContext(), CompleteIncubation.class);
+            startActivity(completeIncubation);
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
