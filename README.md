@@ -34,7 +34,7 @@ Anggota Kelompok :
 
 1. Add Fungsi 1
 1. Add Fungsi 2
-1. Add Fungsi 3 
+1. Add Fungsi 3
 
 ## Masukkan Perubahan Fungsi :
 
@@ -44,4 +44,6 @@ Anggota Kelompok :
 
 
 test pull request
+
+test pull request 2
 
