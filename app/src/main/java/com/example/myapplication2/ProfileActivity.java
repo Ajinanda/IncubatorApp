@@ -2,6 +2,7 @@ package com.example.myapplication2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -98,12 +99,22 @@ public class ProfileActivity extends AppCompatActivity
 
 
             @Override
-            protected void onBindViewHolder(@NonNull ProfileViewHolder profileViewHolder, int i, @NonNull ProfileData profileData) {
+            protected void onBindViewHolder(@NonNull ProfileViewHolder profileViewHolder, final int position, @NonNull final ProfileData profileData) {
                 profileViewHolder.setNama(profileData.getNama());
                 profileViewHolder.setMinTemp(profileData.getMinTemp());
                 profileViewHolder.setMaxTemp(profileData.getMaxTemp());
                 profileViewHolder.setMoist(profileData.getMinMoist());
                 profileViewHolder.setTimeIncubation(profileData.getTimeIncubation());
+                profileViewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.i("W4K","Click-"+position);
+                        Intent startIntent = new Intent(getApplicationContext(), EditAndDeleteProfile.class);
+                        startIntent.putExtra("name", profileData.getNama());
+                        startActivity(startIntent);
+
+                    }
+                });
             }
         };
         mProfileDataList.setAdapter(mAdapter);
@@ -126,6 +137,7 @@ public class ProfileActivity extends AppCompatActivity
         public ProfileViewHolder(View itemView){
             super(itemView);
             mView=(itemView);
+            this.mView = mView;
         }
 
         public void setNama(String name){

@@ -21,6 +21,7 @@ public class CompleteIncubation extends AppCompatActivity {
     private DatabaseReference myRef;
     private ListView mListView;
     private static final String TAG = "ViewDatabase";
+    private String namaInkubasi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +29,7 @@ public class CompleteIncubation extends AppCompatActivity {
         setContentView(R.layout.activity_complete_incubation);
 
         mListView = (ListView) findViewById(R.id.mListView);
-
+        namaInkubasi = getIntent().getStringExtra("namaInkubasi");
         mDatabaseInkubasi = FirebaseDatabase.getInstance();
         myRef = mDatabaseInkubasi.getReference();
 
@@ -46,12 +47,13 @@ public class CompleteIncubation extends AppCompatActivity {
     }
 
     private void showData(DataSnapshot dataSnapshot) {
+
         for(DataSnapshot ds : dataSnapshot.getChildren()){
             IncubationData id = new IncubationData();
-            id.setNamaInkubasi(ds.child("Inkubasi").child("namaInkubasi").getValue(IncubationData.class).getNamaInkubasi());
-            id.setProfilUnggas(ds.child("Inkubasi").child("profilUnggas").getValue(IncubationData.class).getProfilUnggas());
-            id.setJumlahTelur(ds.child("Inkubasi").child("jumlahTelur").getValue(IncubationData.class).getJumlahTelur());
-            id.setTanggalInkubasi(ds.child("Inkubasi").child("tanggalInkubasi").getValue(IncubationData.class).getTanggalInkubasi());
+            id.setNamaInkubasi(ds.child(namaInkubasi).getValue(IncubationData.class).getNamaInkubasi());
+            id.setProfilUnggas(ds.child(namaInkubasi).getValue(IncubationData.class).getProfilUnggas());
+            id.setJumlahTelur(ds.child(namaInkubasi).getValue(IncubationData.class).getJumlahTelur());
+            id.setTanggalInkubasi(ds.child(namaInkubasi).getValue(IncubationData.class).getTanggalInkubasi());
 
             Log.d(TAG, "showData :nama" +id.getNamaInkubasi());
             Log.d(TAG, "showData :unggas" +id.getProfilUnggas());
