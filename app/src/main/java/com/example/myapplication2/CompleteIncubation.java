@@ -50,23 +50,7 @@ public class CompleteIncubation extends AppCompatActivity {
 
         for(DataSnapshot ds : dataSnapshot.getChildren()){
             IncubationData id = new IncubationData();
-            id.setNamaInkubasi(ds.child(namaInkubasi).getValue(IncubationData.class).getNamaInkubasi());
-            id.setProfilUnggas(ds.child(namaInkubasi).getValue(IncubationData.class).getProfilUnggas());
-            id.setJumlahTelur(ds.child(namaInkubasi).getValue(IncubationData.class).getJumlahTelur());
-            id.setTanggalInkubasi(ds.child(namaInkubasi).getValue(IncubationData.class).getTanggalInkubasi());
 
-            Log.d(TAG, "showData :nama" +id.getNamaInkubasi());
-            Log.d(TAG, "showData :unggas" +id.getProfilUnggas());
-            Log.d(TAG, "showData :telur" +id.getJumlahTelur());
-            Log.d(TAG, "showData :tanggal" +id.getTanggalInkubasi());
-
-            ArrayList<String> array = new ArrayList<>();
-            array.add(id.getNamaInkubasi());
-            array.add(id.getProfilUnggas());
-            array.add(String.valueOf(id.getJumlahTelur()));
-            array.add(id.getTanggalInkubasi());
-            ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,array);
-            mListView.setAdapter(adapter);
 
         }
     }
