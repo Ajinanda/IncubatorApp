@@ -38,7 +38,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * digunakan untuk memulai proses inkubasi baru.
  *
  * @author Ajinanda Nugraha Putra
- * @version 0.1 (alpha)
+ * @version 0.5
  * @since 2019-5-20
  */
 

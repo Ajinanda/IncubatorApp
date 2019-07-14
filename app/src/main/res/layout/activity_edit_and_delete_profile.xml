@@ -196,7 +196,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textRotationCycle" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/editProfileButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -204,12 +204,12 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:text="@string/editButton"
-            app:layout_constraintBaseline_toBaselineOf="@+id/button5"
-            app:layout_constraintEnd_toStartOf="@+id/button5"
+            app:layout_constraintBaseline_toBaselineOf="@+id/deleteProfileButton"
+            app:layout_constraintEnd_toStartOf="@+id/deleteProfileButton"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/deleteProfileButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -219,7 +219,7 @@
             android:layout_marginRight="16dp"
             android:text="@string/deleteButton"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/button4"
+            app:layout_constraintStart_toEndOf="@+id/editProfileButton"
             app:layout_constraintTop_toBottomOf="@+id/formRotationCycleEdit" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
