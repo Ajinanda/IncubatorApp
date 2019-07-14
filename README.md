@@ -24,13 +24,14 @@ Anggota Kelompok :
 - [x] OnClick CardView pada layar Profile untuk membuka tampilan edit atau hapus profile.
 - [x] Membuat Confirmation Dialog Untuk tombol Edit Profile
 - [x] Membuat Confirmation Dialog Untuk tombol Delet Profile
+- [x] Membuat Confirmation Dialog Untuk tombol Selesai Inkubasi
+
 
 ## Fungsi yang sedang dalam pengerjaan
 
 - [ ] Membuat Tampilan Stop Inkubasi untuk mengakhiri proses inkubasi.
 - [ ] Membuat Tabel UI untuk analisa data?????
 - [ ] OnClick CardView pada layar Inkubasi untuk membuka tampilan stop inkubasi.
-- [ ] Membuat Confirmation Dialog Untuk tombol Selesai Inkubasi
 
 # Tolong Masukkan Fungsi Baru atau Perubahan untuk Fungsi di Atas
 ## Masukkan Fungsi baru dibawah sini :
