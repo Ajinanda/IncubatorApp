@@ -20,14 +20,18 @@ Anggota Kelompok :
 - [x] Mengambil data dari database dan menampilkannya di spinner di dalam Form Inkubasi.
 - [x] Mengambil data dari database dan menampilkannya ke cardView tampilan Inkubasi.
 - [x] Menambahkan Back Button pada tampilan form inkubasi dan form profile.
-- [x] Membuat Tampilan Stop Inkubasi untuk mengakhiri proses inkubasi.
 - [x] Membuat Tampilan Edit dan Hapus Profile untuk mengubah Profile Unggas yang telah dibuat.
+- [x] OnClick CardView pada layar Profile untuk membuka tampilan edit atau hapus profile.
+- [x] Membuat Confirmation Dialog Untuk tombol Edit Profile
+- [x] Membuat Confirmation Dialog Untuk tombol Delet Profile
+- [x] Membuat Confirmation Dialog Untuk tombol Selesai Inkubasi
+
 
 ## Fungsi yang sedang dalam pengerjaan
 
+- [ ] Membuat Tampilan Stop Inkubasi untuk mengakhiri proses inkubasi.
 - [ ] Membuat Tabel UI untuk analisa data?????
 - [ ] OnClick CardView pada layar Inkubasi untuk membuka tampilan stop inkubasi.
-- [ ] OnClick CardView pada layar Profile untuk membuka tampilan edit atau hapus profile.
 
 # Tolong Masukkan Fungsi Baru atau Perubahan untuk Fungsi di Atas
 ## Masukkan Fungsi baru dibawah sini :
