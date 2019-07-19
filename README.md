@@ -25,7 +25,7 @@ Anggota Kelompok :
 - [x] Membuat Confirmation Dialog Untuk tombol Edit Profile
 - [x] Membuat Confirmation Dialog Untuk tombol Delet Profile
 - [x] Membuat Confirmation Dialog Untuk tombol Selesai Inkubasi
-
+- [x] Tombol Edit dan Delete tampilan Edit Profile sudah bekerja.
 
 ## Fungsi yang sedang dalam pengerjaan
 
