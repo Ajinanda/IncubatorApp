@@ -47,5 +47,3 @@ Anggota Kelompok :
 1. Edit Fungsi 3
 
 
-test pull request
-
