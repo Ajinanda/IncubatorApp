@@ -1,11 +1,14 @@
 package com.example.myapplication2;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,6 +45,9 @@ public class EditAndDeleteProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_and_delete_profile);
         name = getIntent().getStringExtra("name");
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         nameEditText = (EditText) findViewById(R.id.formNameEdit);
         minTempEditText = (EditText) findViewById(R.id.formMinTempEdit);
@@ -96,11 +102,38 @@ public class EditAndDeleteProfile extends AppCompatActivity {
     }
 
     private void okEdit(){
-        toastMessage("Profile Edited");
+        int minTemp = Integer.valueOf(minTempEditText.getText().toString());
+        int maxTemp = Integer.valueOf(maxTempEditText.getText().toString());
+        int moist = Integer.valueOf(moistEditText.getText().toString());
+        int timeIncubation = Integer.valueOf(timeIncubationEditText.getText().toString());
+        int timeRotation = Integer.valueOf(timeRotationEditText.getText().toString());
+        int rotationCycle = Integer.valueOf(rotationCycleEditText.getText().toString());
+        try {
+            myRef.child("Profile").child(name).child("minTemp").setValue(minTemp);
+            myRef.child("Profile").child(name).child("maxTemp").setValue(maxTemp);
+            myRef.child("Profile").child(name).child("minMoist").setValue(moist);
+            myRef.child("Profile").child(name).child("timeIncubation").setValue(timeIncubation);
+            myRef.child("Profile").child(name).child("timeRotation").setValue(timeRotation);
+            myRef.child("Profile").child(name).child("rotationCycle").setValue(rotationCycle);
+
+            Intent startIntent = new Intent(getApplicationContext(), ProfileActivity.class);
+            startActivity(startIntent);
+            toastMessage("Profile Edited");
+        } catch (Exception e){
+
+        }
     }
 
     private void okDelete(){
-        toastMessage("Profile Deleted");
+        try {
+            myRef.child("Profile").child(name).removeValue();
+            Intent startIntent = new Intent(getApplicationContext(), ProfileActivity.class);
+            startActivity(startIntent);
+            toastMessage("Profile Deleted");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**
@@ -175,5 +208,10 @@ public class EditAndDeleteProfile extends AppCompatActivity {
         Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
     }
 
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent myIntent = new Intent(getApplicationContext(), ProfileActivity.class);
+        startActivityForResult(myIntent,0);
+        return true;
+    }
 }
