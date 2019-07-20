@@ -102,6 +102,7 @@ public class MainActivity extends AppCompatActivity
         mAdapter.startListening();
     }
 
+
     private void fetch(){
         FirebaseRecyclerOptions<IncubationData> options =
                 new FirebaseRecyclerOptions.Builder<IncubationData>()

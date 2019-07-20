@@ -51,4 +51,17 @@
     <!-- Layar Edit dan hapus Profile -->
     <string name="editButton">Edit</string>
     <string name="deleteButton">Delete</string>
+    
+    <string name="divider1">Pengaturan Suhu dan Kelembapan</string>
+    <string name="divider2">Pengaturan Pembalikan Rak Telur</string>
+    <string name="jadwal1">Jadwal Pertama</string>
+    <string name="jadwal2">Jadwal Kedua</string>
+    <string name="jadwal3">Jadwal Ketiga</string>
+    <string name="jam">Jam</string>
+    <string name="menit">Menit</string>
+    <string name="tanggal">Tanggal</string>
+    <string name="awal_pembalikan">Tanggal Awal Pembalikan</string>
+    <string name="akhir_pembalikan">Tanggal Akhir Pembalikan</string>
+    <string name="bulan">Bulan</string>
+    <string name="tahun">Tahun</string>
 </resources>

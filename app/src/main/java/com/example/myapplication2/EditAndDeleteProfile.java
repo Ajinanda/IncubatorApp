@@ -27,7 +27,6 @@ public class EditAndDeleteProfile extends AppCompatActivity {
     private FirebaseDatabase mDatabaseProfile;
     private DatabaseReference myRef;
     private ListView mListView;
-    private static final String TAG = "ViewDatabase";
     private String name;
 
     private EditText nameEditText;
