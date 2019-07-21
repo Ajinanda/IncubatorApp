@@ -32,6 +32,7 @@ Anggota Kelompok :
 - [x] Membuat Form Mulai Inkubasi
 - [x] cara updateFirebase diganti jadi menggunakan HashMap
 - [x] Update Class IncubationData
+- [x] Tombol tambah inkubasi mencek apakah ada proses inkubasi yang sedang berlangsung.
 
 ## Fungsi yang sedang dalam pengerjaan
 
