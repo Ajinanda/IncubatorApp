@@ -1,6 +1,7 @@
 package com.example.myapplication2;
 
 import android.content.ClipData;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,17 +11,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
@@ -48,9 +55,11 @@ public class MainActivity extends AppCompatActivity
 
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
-    private DatabaseReference mDatabaseInkubasi;
+    private FirebaseDatabase mDatabase;
+    private DatabaseReference myRef;
     private FirebaseRecyclerAdapter mAdapter;
     private String location;
+    private String test;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +69,24 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         setTitle("Inkubasi");
 
-        mDatabaseInkubasi = FirebaseDatabase.getInstance()
-                .getReference()
-                .child("Inkubasi");
-        mDatabaseInkubasi.keepSynced(true);
+        mDatabase = FirebaseDatabase.getInstance();
+        myRef = mDatabase.getReference().child("CONTROLLING");
+        myRef.keepSynced(true);
+
+        Query namaInkubasiRef = myRef.child("Inkubasi").child("namaInkubasi");
+        namaInkubasiRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                test = dataSnapshot.getValue(String.class);
+                Log.i("Test","Output : "+ test);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         mRecyclerView=(RecyclerView)findViewById(R.id.inkubasiRecyclerView);
         //mRecyclerView.setHasFixedSize(true);
@@ -75,8 +98,13 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 try {
-                    Intent startIntent = new Intent(getApplicationContext(), IncubationForm.class);
-                    startActivity(startIntent);
+                    if (test.equals("")){
+                        Intent startIntent = new Intent(getApplicationContext(), IncubationForm.class);
+                        startActivity(startIntent);
+
+                    } else {
+                        customDialog("Mulai Inkubasi","Anda Tidak Dapat Memulai Inkubasi Karena Ada Proses Inkubasi yang Sedang Berjalan.","ok");
+                    }
                 } catch (Exception e) {
 
                 }
@@ -96,6 +124,33 @@ public class MainActivity extends AppCompatActivity
         fetch();
     }
 
+    public void ok(){
+        toastMessage("Gagal Memulai Inkubasi");
+    }
+
+    public void customDialog(String title, String message, final String okMethod){
+        final AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
+        builderSingle.setTitle(title);
+        builderSingle.setMessage(message);
+
+        builderSingle.setPositiveButton(
+                "OK",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        if(okMethod.equals("ok")){
+                            ok();
+                        }
+                    }
+                });
+        builderSingle.show();
+    }
+
+    public void toastMessage(String message){
+        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
+    }
+
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -106,8 +161,9 @@ public class MainActivity extends AppCompatActivity
     private void fetch(){
         FirebaseRecyclerOptions<IncubationData> options =
                 new FirebaseRecyclerOptions.Builder<IncubationData>()
-                        .setQuery(mDatabaseInkubasi, IncubationData.class)
+                        .setQuery(myRef.child("Inkubasi"), IncubationData.class)
                         .build();
+
         mAdapter = new FirebaseRecyclerAdapter<IncubationData, MainActivity.IncubationViewHolder>(options) {
             @NonNull
             @Override
@@ -122,7 +178,7 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             protected void onBindViewHolder(@NonNull MainActivity.IncubationViewHolder incubationViewHolder, final int position, @NonNull final IncubationData incubationData) {
-                location = mAdapter.getRef(position).getKey();
+                //location = mAdapter.getRef(position).getKey();
                 incubationViewHolder.setNamaInkubasi(incubationData.getNamaInkubasi());
                 incubationViewHolder.setTanggalInkubasi(incubationData.getTanggalInkubasi());
                 incubationViewHolder.mView.setOnClickListener(new View.OnClickListener() {

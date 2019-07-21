@@ -190,8 +190,6 @@ public class EditAndDeleteProfile extends AppCompatActivity {
             String timeRotation = String.valueOf(ds.getValue(ProfileData.class).getTimeRotation());
             String rotationCycle = String.valueOf(ds.getValue(ProfileData.class).getRotationCycle());
 
-            //String value = dataSnapshot.getValue(String.class);
-
             nameEditText.setText(nama);
             minTempEditText.setText(minTemp);
             maxTempEditText.setText(maxTemp);

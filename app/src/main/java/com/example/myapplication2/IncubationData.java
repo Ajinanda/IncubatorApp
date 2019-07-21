@@ -114,6 +114,13 @@ public class IncubationData {
         this.tanggalPembalikan = tanggalPembalikan;
     }
 
+    /**
+     * <h1>Fungsi Profile Data</h1>
+     * Constructor ini digunakan untuk menentukan data inkubasi apa yang akan
+     * dikirim ke database.
+     *
+     *
+     */
     public IncubationData(String namaInkubasi, String jenisUnggas, int jumlahTelur, int masaInkubasi, int masaMembalikTelur, int siklusPembalikanTelur, int minTemp, int maxTemp, int moist, int[][] jadwal, int[][] tanggalPembalikan) {
         this.namaInkubasi = namaInkubasi;
         this.jenisUnggas = jenisUnggas;
@@ -127,14 +134,6 @@ public class IncubationData {
         this.jadwal = jadwal;
         this.tanggalPembalikan = tanggalPembalikan;
     }
-
-    /**
-     * <h1>Fungsi Profile Data</h1>
-     * Constructor ini digunakan untuk menentukan data inkubasi apa yang akan
-     * dikirim ke database.
-     *
-     *
-     */
 
     public Map<String, Object> inkubasiMap(){
         HashMap<String, Object> inkubasi = new HashMap<>();
