@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity
     private void fetch(){
         FirebaseRecyclerOptions<IncubationData> options =
                 new FirebaseRecyclerOptions.Builder<IncubationData>()
-                        .setQuery(myRef.child("Inkubasi"), IncubationData.class)
+                        .setQuery(myRef, IncubationData.class)
                         .build();
 
         mAdapter = new FirebaseRecyclerAdapter<IncubationData, MainActivity.IncubationViewHolder>(options) {
