@@ -114,6 +114,20 @@ public class IncubationData {
         this.tanggalPembalikan = tanggalPembalikan;
     }
 
+    public IncubationData(String namaInkubasi, String tanggalInkubasi) {
+        this.namaInkubasi = namaInkubasi;
+        this.tanggalInkubasi = tanggalInkubasi;
+    }
+
+    public IncubationData(String namaInkubasi, String tanggalInkubasi, String jenisUnggas, int masaInkubasi, int siklusPembalikanTelur, int jumlahTelur) {
+        this.namaInkubasi = namaInkubasi;
+        this.jenisUnggas = jenisUnggas;
+        this.tanggalInkubasi = tanggalInkubasi;
+        this.jumlahTelur = jumlahTelur;
+        this.masaInkubasi = masaInkubasi;
+        this.siklusPembalikanTelur = siklusPembalikanTelur;
+    }
+
     /**
      * <h1>Fungsi Profile Data</h1>
      * Constructor ini digunakan untuk menentukan data inkubasi apa yang akan

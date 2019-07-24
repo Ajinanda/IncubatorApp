@@ -51,7 +51,7 @@
     <!-- Layar Edit dan hapus Profile -->
     <string name="editButton">Edit</string>
     <string name="deleteButton">Delete</string>
-    
+
     <string name="divider1">Pengaturan Suhu dan Kelembapan</string>
     <string name="divider2">Pengaturan Pembalikan Rak Telur</string>
     <string name="jadwal1">Jadwal Pertama</string>

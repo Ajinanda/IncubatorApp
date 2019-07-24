@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.firebase.ui.database.SnapshotParser;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,6 +36,8 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import org.w3c.dom.Text;
 
 /**
  * <h1>Layar Inkubasi/Layar Utama</h1>
@@ -59,7 +62,7 @@ public class MainActivity extends AppCompatActivity
     private DatabaseReference myRef;
     private FirebaseRecyclerAdapter mAdapter;
     private String location;
-    private String test;
+    private String namaInkubasi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,15 +73,15 @@ public class MainActivity extends AppCompatActivity
         setTitle("Inkubasi");
 
         mDatabase = FirebaseDatabase.getInstance();
-        myRef = mDatabase.getReference().child("CONTROLLING");
+        myRef = mDatabase.getReference();
         myRef.keepSynced(true);
 
-        Query namaInkubasiRef = myRef.child("Inkubasi").child("namaInkubasi");
+        Query namaInkubasiRef = myRef.child("CONTROLLING").child("Inkubasi").child("namaInkubasi");
         namaInkubasiRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                test = dataSnapshot.getValue(String.class);
-                Log.i("Test","Output : "+ test);
+                namaInkubasi = dataSnapshot.getValue(String.class);
+                Log.i("Test","Output : "+ namaInkubasi);
 
             }
 
@@ -98,7 +101,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 try {
-                    if (test.equals("")){
+                    if (namaInkubasi.equals("")){
                         Intent startIntent = new Intent(getApplicationContext(), IncubationForm.class);
                         startActivity(startIntent);
 
@@ -159,9 +162,12 @@ public class MainActivity extends AppCompatActivity
 
 
     private void fetch(){
+        Query query = myRef.child("CONTROLLING");
+        Query query2 = myRef.child("Monitoring");
+
         FirebaseRecyclerOptions<IncubationData> options =
                 new FirebaseRecyclerOptions.Builder<IncubationData>()
-                        .setQuery(myRef, IncubationData.class)
+                        .setQuery(query, IncubationData.class)
                         .build();
 
         mAdapter = new FirebaseRecyclerAdapter<IncubationData, MainActivity.IncubationViewHolder>(options) {
@@ -179,8 +185,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             protected void onBindViewHolder(@NonNull MainActivity.IncubationViewHolder incubationViewHolder, final int position, @NonNull final IncubationData incubationData) {
                 //location = mAdapter.getRef(position).getKey();
-                incubationViewHolder.setNamaInkubasi(incubationData.getNamaInkubasi());
-                incubationViewHolder.setTanggalInkubasi(incubationData.getTanggalInkubasi());
+                incubationViewHolder.setNamaInkubasi(String.valueOf(incubationData.getNamaInkubasi()));
+                incubationViewHolder.setTanggalInkubasi(String.valueOf(incubationData.getTanggalInkubasi()));
                 incubationViewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -199,22 +205,40 @@ public class MainActivity extends AppCompatActivity
     public static class IncubationViewHolder extends RecyclerView.ViewHolder{
         public View mView;
         CardView cardView;
+        public TextView post_nama;
+        public TextView post_tanggal;
+        public TextView post_temp;
+        public TextView post_moist;
+
 
         public IncubationViewHolder(View itemView){
             super(itemView);
             mView=(itemView);
             this.mView = mView;
             this.cardView= (CardView) mView.findViewById(R.id.incubatedEggCardView);
+            post_nama = (TextView) mView.findViewById(R.id.namaInkubasiTextView);
+            post_tanggal = (TextView) mView.findViewById(R.id.tanggalInkubasiTextView);
+            post_temp = (TextView) mView.findViewById(R.id.tempInkubatorTextView);
+            post_moist = (TextView) mView.findViewById(R.id.moistInkubatorTextView);
+
         }
 
         public void setNamaInkubasi(String namaInkubasi){
-            TextView post_nama = (TextView) mView.findViewById(R.id.namaInkubasiTextView);
+
             post_nama.setText(namaInkubasi);
         }
 
         public void setTanggalInkubasi(String tanggalInkubasi){
-            TextView post_Temp = (TextView) mView.findViewById(R.id.tanggalInkubasiTextView);
-            post_Temp.setText(tanggalInkubasi);
+
+            post_tanggal.setText(tanggalInkubasi);
+        }
+
+        public void setTempInkubasi(String tempInkubasi){
+            post_temp.setText(tempInkubasi);
+        }
+
+        public void setMoistInkubasi(String moistInkubasi){
+            post_temp.setText(moistInkubasi);
         }
     }
 
@@ -274,7 +298,8 @@ public class MainActivity extends AppCompatActivity
             Intent completeIncubation = new Intent(getApplicationContext(), CompleteIncubation.class);
             startActivity(completeIncubation);
         } else if (id == R.id.nav_manage) {
-
+            Intent editIncubation = new Intent(getApplicationContext(), EditAndDeleteInkubasi.class);
+            startActivity(editIncubation);
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {

@@ -109,7 +109,7 @@ public class ProfileActivity extends AppCompatActivity
                     @Override
                     public void onClick(View v) {
                         Log.i("W4K","Click-"+position);
-                        Intent startIntent = new Intent(getApplicationContext(), EditAndDeleteProfile.class);
+                        Intent startIntent = new Intent(getApplicationContext(), EditAndDeleteInkubasi.class);
                         startIntent.putExtra("name", profileData.getNama());
                         startActivity(startIntent);
 
