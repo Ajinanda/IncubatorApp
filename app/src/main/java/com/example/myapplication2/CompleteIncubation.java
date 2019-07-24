@@ -1,6 +1,7 @@
 package com.example.myapplication2;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +17,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.firebase.ui.database.FirebaseListAdapter;
+import com.firebase.ui.database.FirebaseListOptions;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,10 +31,17 @@ import java.util.ArrayList;
 public class CompleteIncubation extends AppCompatActivity {
     private FirebaseDatabase mDatabaseInkubasi;
     private DatabaseReference myRef;
-    private ListView mListView;
+    private ListView lView;
     private static final String TAG = "ViewDatabase";
-    private String namaInkubasi;
     private Button completeIncubationButton;
+    private Button editScreenButton;
+    public String nama, namaInkubasi, jenisUnggas, tanggalInkubasi;
+    public long jumlahTelur, masaInkubasi, masaMembalikTelur, siklusPembalikanTelur,
+            minTemp, maxTemp, moist, temp;
+    public long[][] jadwal = new long[3][2];
+    public long[][] tanggalPembalikan = new long[2][3];
+    String[] data;
+    String[] labelData = {"Nama Inkubasi", "Nama Unggas", "Tanggal Mulai"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +51,42 @@ public class CompleteIncubation extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        mListView = (ListView) findViewById(R.id.mListView);
-        namaInkubasi = getIntent().getStringExtra("namaInkubasi");
+        lView = findViewById(R.id.mListView);
+        nama = getIntent().getStringExtra("namaInkubasi");
         mDatabaseInkubasi = FirebaseDatabase.getInstance();
         myRef = mDatabaseInkubasi.getReference();
 
-        myRef.addValueEventListener(new ValueEventListener() {
+
+        /*myRef.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                showData(dataSnapshot);
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                namaInkubasi = (String) dataSnapshot.child("CONTROLLING").child("Inkubasi").child("namaInkubasi").getValue();
+                jenisUnggas = (String) dataSnapshot.child("CONTROLLING").child("Inkubasi").child("unggas").getValue();
+                tanggalPembalikan[0][0] = (long) dataSnapshot.child("CONTROLLING").child("RTC").child("tgl1").child("tanggal").getValue();
+                tanggalPembalikan[0][1] = (long) dataSnapshot.child("CONTROLLING").child("RTC").child("tgl1").child("bulan").getValue();
+                tanggalPembalikan[0][2] = (long) dataSnapshot.child("CONTROLLING").child("RTC").child("tgl1").child("tahun").getValue();
+                tanggalInkubasi = tanggalPembalikan[0][0]+"/"+tanggalPembalikan[0][1]+"/"+tanggalPembalikan[0][2];
+
+                data[0] = namaInkubasi;
+                data[1] = jenisUnggas;
+                data[2] = tanggalInkubasi;
+
+                Log.i("TEST CHILD LISTENER", "TEST"+namaInkubasi+", "+jenisUnggas+", "+tanggalInkubasi);
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
             }
 
             @Override
@@ -57,7 +95,32 @@ public class CompleteIncubation extends AppCompatActivity {
             }
         });
 
-        completeIncubationButton = (Button) findViewById(R.id.completeIncubationButton);
+        /*myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });*/
+
+        /*CustomAdapter customAdapter = new CustomAdapter(getApplicationContext(), data, labelData);
+        lView.setAdapter(customAdapter);*/
+
+        editScreenButton = findViewById(R.id.editScreenButton);
+        editScreenButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent editScreen = new Intent(getApplicationContext(), EditAndDeleteInkubasi.class);
+                startActivity(editScreen);
+            }
+        });
+
+        completeIncubationButton = findViewById(R.id.completeIncubationButton);
 
         completeIncubationButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,15 +175,6 @@ public class CompleteIncubation extends AppCompatActivity {
 
 
         builderSingle.show();
-    }
-
-    private void showData(DataSnapshot dataSnapshot) {
-
-        for(DataSnapshot ds : dataSnapshot.getChildren()){
-            IncubationData id = new IncubationData();
-
-
-        }
     }
 
     public void toastMessage(String message){

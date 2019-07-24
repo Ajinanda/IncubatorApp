@@ -54,10 +54,10 @@ public class EditAndDeleteInkubasi extends AppCompatActivity {
     DatePickerDialog dpd;
     TimePickerDialog tpd;
     String namaInkubasi, jenisUnggas;
-    int jumlahTelur, masaInkubasi, masaMembalikTelur, siklusPembalikanTelur,
+    long jumlahTelur, masaInkubasi, masaMembalikTelur, siklusPembalikanTelur,
             minTemp, maxTemp, moist;
-    int[][] jadwal = new int[3][2];
-    int[][] tanggalPembalikan = new int[2][3];
+    long[][] jadwal = new long[3][2];
+    long[][] tanggalPembalikan = new long[2][3];
     private Button editProfileButton;
     private Button deleteProfileButton;
 
@@ -97,26 +97,49 @@ public class EditAndDeleteInkubasi extends AppCompatActivity {
         /*memanggil DatePickerDialog dan TimePickerDialog*/
 
         mDatabaseProfile = FirebaseDatabase.getInstance();
-        myRef = mDatabaseProfile.getReference().child("CONTROLLING").child("Inkubasi");
-        myRef2 = mDatabaseProfile.getReference().child("CONTROLLING").child("atursuhu");
+        myRef = mDatabaseProfile.getReference().child("CONTROLLING");
 
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                showData(dataSnapshot);
-            }
+                //showData(dataSnapshot);
+                namaInkubasi = (String) dataSnapshot.child("Inkubasi").child("namaInkubasi").getValue();
+                jenisUnggas = (String) dataSnapshot.child("Inkubasi").child("unggas").getValue();
+                jumlahTelur = (long) dataSnapshot.child("Inkubasi").child("jumlahTelur").getValue();
+                masaInkubasi = (long) dataSnapshot.child("Inkubasi").child("timeIncubation").getValue();
+                masaMembalikTelur = (long) dataSnapshot.child("Inkubasi").child("timeRotation").getValue();
+                minTemp = (long) dataSnapshot.child("Atursuhu").child("minsuhu").getValue();
+                maxTemp = (long) dataSnapshot.child("Atursuhu").child("maxsuhu").getValue();
+                moist = (long) dataSnapshot.child("Atursuhu").child("minlembab").getValue();
+                jadwal[0][0] = (long) dataSnapshot.child("RTC").child("jadwal1").child("jam").getValue();
+                jadwal[0][1] = (long) dataSnapshot.child("RTC").child("jadwal1").child("menit").getValue();
+                jadwal[1][0] = (long) dataSnapshot.child("RTC").child("jadwal2").child("jam").getValue();
+                jadwal[1][1] = (long) dataSnapshot.child("RTC").child("jadwal2").child("menit").getValue();
+                jadwal[2][0] = (long) dataSnapshot.child("RTC").child("jadwal3").child("jam").getValue();
+                jadwal[2][1] = (long) dataSnapshot.child("RTC").child("jadwal3").child("menit").getValue();
+                tanggalPembalikan[0][0] = (long) dataSnapshot.child("RTC").child("tgl1").child("tanggal").getValue();
+                tanggalPembalikan[0][1] = (long) dataSnapshot.child("RTC").child("tgl1").child("bulan").getValue();
+                tanggalPembalikan[0][2] = (long) dataSnapshot.child("RTC").child("tgl1").child("tahun").getValue();
+                tanggalPembalikan[1][0] = (long) dataSnapshot.child("RTC").child("tgl2").child("tanggal").getValue();
+                tanggalPembalikan[1][1] = (long) dataSnapshot.child("RTC").child("tgl2").child("bulan").getValue();
+                tanggalPembalikan[1][2] = (long) dataSnapshot.child("RTC").child("tgl2").child("tahun").getValue();
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                namaInkubasiEditText.setText(namaInkubasi);
+                jenisUnggasEditText.setText(jenisUnggas);
+                jumlahTelurEditText.setText(String.valueOf(jumlahTelur));
+                masaInkubasiEditText.setText(String.valueOf(masaInkubasi));
+                masaMembalikTelurEditText.setText(String.valueOf(masaMembalikTelur));
+                minTempEditText.setText(String.valueOf(minTemp));
+                maxTempEditText.setText(String.valueOf(maxTemp));
+                moistEditText.setText(String.valueOf(moist));
+                jadwalPertamaEditText.setText(jadwal[0][0]+":"+jadwal[0][1]);
+                jadwalKeduaEditText.setText(jadwal[1][0]+":"+jadwal[1][1]);
+                jadwalKetigaEditText.setText(jadwal[2][0]+":"+jadwal[2][1]);
+                tanggalAwalPembalikanEditText.setText(tanggalPembalikan[0][0]+"/"+tanggalPembalikan[0][1]+"/"+tanggalPembalikan[0][2]);
+                tanggalAkhirPembalikanEditText.setText(tanggalPembalikan[1][0]+"/"+tanggalPembalikan[1][1]+"/"+tanggalPembalikan[1][2]);
 
-            }
-        });
 
-        myRef2.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                showData1(dataSnapshot);
             }
 
             @Override
@@ -156,13 +179,13 @@ public class EditAndDeleteInkubasi extends AppCompatActivity {
             /*Memasukkan data dari form kedalam variable*/
             namaInkubasi = namaInkubasiEditText.getText().toString();
             jenisUnggas = jenisUnggasEditText.getText().toString();
-            jumlahTelur = Integer.valueOf(jumlahTelurEditText.getText().toString());
-            masaInkubasi = Integer.valueOf(masaInkubasiEditText.getText().toString());
-            masaMembalikTelur = Integer.valueOf(masaMembalikTelurEditText.getText().toString());
-            siklusPembalikanTelur = Integer.valueOf(siklusPembalikanTelurEditText.getText().toString());
-            minTemp = Integer.valueOf(minTempEditText.getText().toString());
-            maxTemp = Integer.valueOf(maxTempEditText.getText().toString());
-            moist = Integer.valueOf(moistEditText.getText().toString());
+            jumlahTelur = Long.valueOf(jumlahTelurEditText.getText().toString());
+            masaInkubasi = Long.valueOf(masaInkubasiEditText.getText().toString());
+            masaMembalikTelur = Long.valueOf(masaMembalikTelurEditText.getText().toString());
+            siklusPembalikanTelur = Long.valueOf(siklusPembalikanTelurEditText.getText().toString());
+            minTemp = Long.valueOf(minTempEditText.getText().toString());
+            maxTemp = Long.valueOf(maxTempEditText.getText().toString());
+            moist = Long.valueOf(moistEditText.getText().toString());
             /*Memasukkan data dari form kedalam variable*/
 
             IncubationData startIncubation = new IncubationData(namaInkubasi, jenisUnggas, jumlahTelur, masaInkubasi, masaMembalikTelur, siklusPembalikanTelur, minTemp, maxTemp, moist, jadwal, tanggalPembalikan);
@@ -232,30 +255,6 @@ public class EditAndDeleteInkubasi extends AppCompatActivity {
 
 
         builderSingle.show();
-    }
-
-    private void showData(DataSnapshot dataSnapshot) {
-        for (DataSnapshot ds : dataSnapshot.getChildren()){
-
-            namaInkubasi = ds.getValue(IncubationData.class).getNamaInkubasi();
-            jenisUnggas = ds.getValue(IncubationData.class).getJenisUnggas();
-            jumlahTelur = ds.getValue(IncubationData.class).getJumlahTelur();
-            masaInkubasi = ds.getValue(IncubationData.class).getMasaInkubasi();
-            masaMembalikTelur = ds.getValue(IncubationData.class).getMasaMembalikTelur();
-
-        }
-
-    }
-
-    private void showData1(DataSnapshot dataSnapshot) {
-        for (DataSnapshot ds : dataSnapshot.getChildren()){
-
-            minTemp = ds.getValue(IncubationData.class).getMinTemp();
-            maxTemp = ds.getValue(IncubationData.class).getMaxTemp();
-            moist = ds.getValue(IncubationData.class).getMoist();
-
-        }
-
     }
 
 

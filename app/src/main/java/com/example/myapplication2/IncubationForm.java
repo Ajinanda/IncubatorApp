@@ -58,10 +58,10 @@ public class IncubationForm extends AppCompatActivity {
     DatePickerDialog dpd;
     TimePickerDialog tpd;
     String namaInkubasi, jenisUnggas;
-    int jumlahTelur, masaInkubasi, masaMembalikTelur, siklusPembalikanTelur,
+    long jumlahTelur, masaInkubasi, masaMembalikTelur, siklusPembalikanTelur,
             minTemp, maxTemp, moist;
-    int[][] jadwal = new int[3][2];
-    int[][] tanggalPembalikan = new int[2][3];
+    long[][] jadwal = new long[3][2];
+    long[][] tanggalPembalikan = new long[2][3];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,13 +134,13 @@ public class IncubationForm extends AppCompatActivity {
                     /*Memasukkan data dari form kedalam variable*/
                     namaInkubasi = namaInkubasiEditText.getText().toString();
                     jenisUnggas = jenisUnggasEditText.getText().toString();
-                    jumlahTelur = Integer.valueOf(jumlahTelurEditText.getText().toString());
-                    masaInkubasi = Integer.valueOf(masaInkubasiEditText.getText().toString());
-                    masaMembalikTelur = Integer.valueOf(masaMembalikTelurEditText.getText().toString());
-                    siklusPembalikanTelur = Integer.valueOf(siklusPembalikanTelurEditText.getText().toString());
-                    minTemp = Integer.valueOf(minTempEditText.getText().toString());
-                    maxTemp = Integer.valueOf(maxTempEditText.getText().toString());
-                    moist = Integer.valueOf(moistEditText.getText().toString());
+                    jumlahTelur = Long.valueOf(jumlahTelurEditText.getText().toString());
+                    masaInkubasi = Long.valueOf(masaInkubasiEditText.getText().toString());
+                    masaMembalikTelur = Long.valueOf(masaMembalikTelurEditText.getText().toString());
+                    siklusPembalikanTelur = Long.valueOf(siklusPembalikanTelurEditText.getText().toString());
+                    minTemp = Long.valueOf(minTempEditText.getText().toString());
+                    maxTemp = Long.valueOf(maxTempEditText.getText().toString());
+                    moist = Long.valueOf(moistEditText.getText().toString());
                     /*Memasukkan data dari form kedalam variable*/
 
                     IncubationData startIncubation = new IncubationData(namaInkubasi, jenisUnggas, jumlahTelur, masaInkubasi, masaMembalikTelur, siklusPembalikanTelur, minTemp, maxTemp, moist, jadwal, tanggalPembalikan);
