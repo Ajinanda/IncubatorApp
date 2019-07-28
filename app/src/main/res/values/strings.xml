@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application2</string>
+    <string name="app_name">Incubator</string>
     <string name="profile_label">Profil Unggas</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -41,7 +41,7 @@
     <!--Layar Stop Inkubasi -->
     <string name="nama_inkubasi">Nama</string>
     <string name="tanggal_inkubasi_">Tanggal Mulai</string>
-    <string name="jumlah_telur">Jumlah Telur</string>
+    <string name="jumlah_telur">Jumlah Telur :</string>
     <string name="temperatur_inkubator">Temperatur</string>
     <string name="selesai_inkubasi">Inkubasi Selesai</string>
     <string name="kelembapan">Kelembapan</string>
@@ -51,7 +51,7 @@
     <!-- Layar Edit dan hapus Profile -->
     <string name="editButton">Edit</string>
     <string name="deleteButton">Delete</string>
-    
+
     <string name="divider1">Pengaturan Suhu dan Kelembapan</string>
     <string name="divider2">Pengaturan Pembalikan Rak Telur</string>
     <string name="jadwal1">Jadwal Pertama</string>
@@ -64,4 +64,23 @@
     <string name="akhir_pembalikan">Tanggal Akhir Pembalikan</string>
     <string name="bulan">Bulan</string>
     <string name="tahun">Tahun</string>
+    <string name="m_screen">Layar Monitoring Inkubasi</string>
+    <string name="no_incubation">Tidak Ada Proses Inkubasi Yang Sedang Berjalan</string>
+
+    <!-- CardView -->
+    <string name="namaCV">Nama Inkubasi :</string>
+    <string name="tanggalCV">Tanggal Mulai :</string>
+    <string name="tempCV">Temperatur :</string>
+    <string name="moistCV">Kelembapan :</string>
+    <string name="m_inkubasi">Masa Inkubasi (Hari) :</string>
+    <string name="j_unggas">Jenis Unggas :</string>
+    <string name="t_inkubasi">Tanggal Mulai</string>
+    <string name="j_telur">Jumlah Telur</string>
+    <string name="menetas">Menetas</string>
+    <string name="gagal">Gagal</string>
+    <string name="inkubasi">Inkubasi</string>
+    <string name="unggas">Unggas</string>
+    <string name="mulai">Mulai</string>
+    <string name="telur">Telur</string>
+    <string name="durasi">Durasi(Hari)</string>
 </resources>

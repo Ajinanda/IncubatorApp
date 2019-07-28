@@ -3,8 +3,8 @@
 <br>
 Anggota Kelompok :
 <br>(C030316088) - Ajinanda Nugraha Putra
-<br>(----------) - 
-<br>(----------) - 
+<br>(C030316102) - Muhammad Bayustira Hermadana Putra
+<br>(C030316046) - Muhammad Haris Ansari
 
 # Progress
 
@@ -33,15 +33,16 @@ Anggota Kelompok :
 - [x] cara updateFirebase diganti jadi menggunakan HashMap
 - [x] Update Class IncubationData
 - [x] Tombol tambah inkubasi mencek apakah ada proses inkubasi yang sedang berlangsung.
+- [x] Membuat Tampilan Stop Inkubasi untuk mengakhiri proses inkubasi.
+- [x] ~~Membuat Tabel UI untuk analisa data?????~~
+- [x] OnClick CardView pada layar Inkubasi untuk membuka tampilan stop inkubasi.
+- [x] Membuat Tampilan Edit, Delete dan Selesai Inkubasi
+- [x] Modifikasi Cardview tampilan Inkubasi untuk mengambil data dari database baru
+- [x] Membuat Tampilan Monitoring untuk memonitor proses inkubasi
 
 ## Fungsi yang sedang dalam pengerjaan
 
-- [ ] Membuat Tampilan Stop Inkubasi untuk mengakhiri proses inkubasi.
-- [ ] Membuat Tabel UI untuk analisa data?????
-- [ ] OnClick CardView pada layar Inkubasi untuk membuka tampilan stop inkubasi.
-- [ ] Membuat Tampilan Edit, Delete dan Selesai Inkubasi
-- [ ] Modifikasi Cardview tampilan Inkubasi untuk mengambil data dari database baru
-- [ ] Membuat Tampilan Monitoring untuk memonitor proses inkubasi
+
 
 # Tolong Masukkan Fungsi Baru atau Perubahan untuk Fungsi di Atas
 ## Masukkan Fungsi baru dibawah sini :

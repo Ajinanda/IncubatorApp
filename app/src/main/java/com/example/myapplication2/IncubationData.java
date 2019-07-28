@@ -1,5 +1,7 @@
 package com.example.myapplication2;
 
+import android.util.Log;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,18 +15,26 @@ import java.util.Map;
  */
 public class IncubationData {
     public String namaInkubasi, jenisUnggas, tanggalInkubasi;
-    public int jumlahTelur, masaInkubasi, masaMembalikTelur, siklusPembalikanTelur,
+    public long jumlahTelur, masaInkubasi, masaMembalikTelur, siklusPembalikanTelur,
             minTemp, maxTemp, moist;
-    public int[][] jadwal = new int[3][2];
-    public int[][] tanggalPembalikan = new int[2][3];
+    public long[][] jadwal = new long[3][2];
+    public long[][] tanggalPembalikan = new long[2][3];
 
-    public String getTanggalInkubasi() {
-        return tanggalInkubasi;
+    public IncubationData(String namaInkubasi, String jenisUnggas, long jumlahTelur, long masaInkubasi, long masaMembalikTelur, long siklusPembalikanTelur, long minTemp, long maxTemp, long moist, long[][] jadwal, long[][] tanggalPembalikan) {
+        this.namaInkubasi = namaInkubasi;
+        this.jenisUnggas = jenisUnggas;
+        this.jumlahTelur = jumlahTelur;
+        this.masaInkubasi = masaInkubasi;
+        this.masaMembalikTelur = masaMembalikTelur;
+        this.siklusPembalikanTelur = siklusPembalikanTelur;
+        this.minTemp = minTemp;
+        this.maxTemp = maxTemp;
+        this.moist = moist;
+        this.jadwal = jadwal;
+        this.tanggalPembalikan = tanggalPembalikan;
     }
 
-    public void setTanggalInkubasi(String tanggalInkubasi) {
-        this.tanggalInkubasi = tanggalInkubasi;
-    }
+
 
     public String getNamaInkubasi() {
         return namaInkubasi;
@@ -42,75 +52,96 @@ public class IncubationData {
         this.jenisUnggas = jenisUnggas;
     }
 
-    public int getJumlahTelur() {
+    public String getTanggalInkubasi() {
+        return tanggalInkubasi;
+    }
+
+    public void setTanggalInkubasi(String tanggalInkubasi) {
+        this.tanggalInkubasi = tanggalInkubasi;
+    }
+
+    public long getJumlahTelur() {
         return jumlahTelur;
     }
 
-    public void setJumlahTelur(int jumlahTelur) {
+    public void setJumlahTelur(long jumlahTelur) {
         this.jumlahTelur = jumlahTelur;
     }
 
-    public int getMasaInkubasi() {
+    public long getMasaInkubasi() {
         return masaInkubasi;
     }
 
-    public void setMasaInkubasi(int masaInkubasi) {
+    public void setMasaInkubasi(long masaInkubasi) {
         this.masaInkubasi = masaInkubasi;
     }
 
-    public int getMasaMembalikTelur() {
+    public long getMasaMembalikTelur() {
         return masaMembalikTelur;
     }
 
-    public void setMasaMembalikTelur(int masaMembalikTelur) {
+    public void setMasaMembalikTelur(long masaMembalikTelur) {
         this.masaMembalikTelur = masaMembalikTelur;
     }
 
-    public int getSiklusPembalikanTelur() {
+    public long getSiklusPembalikanTelur() {
         return siklusPembalikanTelur;
     }
 
-    public void setSiklusPembalikanTelur(int siklusPembalikanTelur) {
+    public void setSiklusPembalikanTelur(long siklusPembalikanTelur) {
         this.siklusPembalikanTelur = siklusPembalikanTelur;
     }
 
-    public int getMinTemp() {
+    public long getMinTemp() {
         return minTemp;
     }
 
-    public void setMinTemp(int minTemp) {
+    public void setMinTemp(long minTemp) {
         this.minTemp = minTemp;
     }
 
-    public int getMaxTemp() {
+    public long getMaxTemp() {
         return maxTemp;
     }
 
-    public void setMaxTemp(int maxTemp) {
+    public void setMaxTemp(long maxTemp) {
         this.maxTemp = maxTemp;
     }
 
-    public int getMoist() {
+    public long getMoist() {
         return moist;
     }
 
-    public void setMoist(int moist) {
+    public void setMoist(long moist) {
         this.moist = moist;
     }
 
-    public int[][] getJadwal() {
+    public long[][] getJadwal() {
         return jadwal;
     }
 
-    public void setJadwal(int[][] jadwal) {
+    public void setJadwal(long[][] jadwal) {
         this.jadwal = jadwal;
     }
 
-    public int[][] getTanggalPembalikan() {
+    public long[][] getTanggalPembalikan() {
         return tanggalPembalikan;
     }
 
-    public void setTanggalPembalikan(int[][] tanggalPembalikan) {
+    public void setTanggalPembalikan(long[][] tanggalPembalikan) {
+        this.tanggalPembalikan = tanggalPembalikan;
+    }
+
+    public IncubationData(String namaInkubasi, String jenisUnggas, long jumlahTelur, long masaInkubasi, long masaMembalikTelur, long minTemp, long maxTemp, long moist, long[][] jadwal, long[][] tanggalPembalikan) {
+        this.namaInkubasi = namaInkubasi;
+        this.jenisUnggas = jenisUnggas;
+        this.jumlahTelur = jumlahTelur;
+        this.masaInkubasi = masaInkubasi;
+        this.masaMembalikTelur = masaMembalikTelur;
+        this.minTemp = minTemp;
+        this.maxTemp = maxTemp;
+        this.moist = moist;
+        this.jadwal = jadwal;
         this.tanggalPembalikan = tanggalPembalikan;
     }
 
@@ -121,28 +152,17 @@ public class IncubationData {
      *
      *
      */
-    public IncubationData(String namaInkubasi, String jenisUnggas, int jumlahTelur, int masaInkubasi, int masaMembalikTelur, int siklusPembalikanTelur, int minTemp, int maxTemp, int moist, int[][] jadwal, int[][] tanggalPembalikan) {
-        this.namaInkubasi = namaInkubasi;
-        this.jenisUnggas = jenisUnggas;
-        this.jumlahTelur = jumlahTelur;
-        this.masaInkubasi = masaInkubasi;
-        this.masaMembalikTelur = masaMembalikTelur;
-        this.siklusPembalikanTelur = siklusPembalikanTelur;
-        this.minTemp = minTemp;
-        this.maxTemp = maxTemp;
-        this.moist = moist;
-        this.jadwal = jadwal;
-        this.tanggalPembalikan = tanggalPembalikan;
-    }
+
+
 
     public Map<String, Object> inkubasiMap(){
         HashMap<String, Object> inkubasi = new HashMap<>();
         inkubasi.put("jumlahTelur", jumlahTelur);
         inkubasi.put("namaInkubasi", namaInkubasi);
-        inkubasi.put("rotationCycle", siklusPembalikanTelur);
         inkubasi.put("timeIncubation", masaInkubasi);
         inkubasi.put("timeRotation", masaMembalikTelur);
         inkubasi.put("unggas", jenisUnggas);
+        Log.i("InkubasiMap", "InkubasiMap: Test Map");
         return inkubasi;
     }
 
@@ -151,6 +171,7 @@ public class IncubationData {
         atursuhu.put("maxsuhu", maxTemp);
         atursuhu.put("minlembab", moist);
         atursuhu.put("minsuhu", minTemp);
+        Log.i("InkubasiMap", "AtursuhuMap: Test Map");
         return atursuhu;
     }
 
@@ -168,6 +189,7 @@ public class IncubationData {
         rtc.put("/tgl2/tanggal",tanggalPembalikan[1][0]);
         rtc.put("/tgl2/bulan",tanggalPembalikan[1][1]);
         rtc.put("/tgl2/tahun",tanggalPembalikan[1][2]);
+        Log.i("InkubasiMap", "rtcMap: Test Map");
         return rtc;
     }
 

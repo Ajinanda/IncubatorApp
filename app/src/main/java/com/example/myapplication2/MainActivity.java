@@ -10,12 +10,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.firebase.ui.database.SnapshotParser;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,8 +27,10 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,6 +40,8 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import org.w3c.dom.Text;
 
 /**
  * <h1>Layar Inkubasi/Layar Utama</h1>
@@ -59,7 +66,13 @@ public class MainActivity extends AppCompatActivity
     private DatabaseReference myRef;
     private FirebaseRecyclerAdapter mAdapter;
     private String location;
-    private String test;
+    private String namaInkubasi, masaInkubasi,temp, moist;
+    private long[] tanggalPembalikan = new long[3];
+    private CardView incubatedEggCardView;
+    private TextView namaInkubasiView;
+    private TextView tanggalInkubasiView;
+    private TextView tempInkubatorView;
+    private TextView moistInkubatorView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,16 +82,50 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         setTitle("Inkubasi");
 
+        incubatedEggCardView = (CardView) findViewById(R.id.incubatedEggCardView);
+        namaInkubasiView = (TextView) findViewById(R.id.namaInkubasiTextView);
+        tanggalInkubasiView = (TextView) findViewById(R.id.tanggalInkubasiTextView);
+        tempInkubatorView = (TextView) findViewById(R.id.tempInkubatorTextView);
+        moistInkubatorView = (TextView) findViewById(R.id.moistInkubatorTextView);
+
+
+        ImageView gambarUnggas = (ImageView) findViewById(R.id.gambarUnggas);
+        gambarUnggas.setImageResource(R.drawable.ic_egg);
+
         mDatabase = FirebaseDatabase.getInstance();
-        myRef = mDatabase.getReference().child("CONTROLLING");
+        mDatabase.setPersistenceEnabled(true);
+        myRef = mDatabase.getReference();
         myRef.keepSynced(true);
 
-        Query namaInkubasiRef = myRef.child("Inkubasi").child("namaInkubasi");
+        Query namaInkubasiRef = myRef;
         namaInkubasiRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                test = dataSnapshot.getValue(String.class);
-                Log.i("Test","Output : "+ test);
+                namaInkubasi = dataSnapshot.child("CONTROLLING").child("Inkubasi").child("namaInkubasi").getValue(String.class);
+                tanggalPembalikan[0] = (long) dataSnapshot.child("CONTROLLING").child("RTC").child("tgl1").child("tanggal").getValue();
+                tanggalPembalikan[1] = (long) dataSnapshot.child("CONTROLLING").child("RTC").child("tgl1").child("bulan").getValue();
+                tanggalPembalikan[2] = (long) dataSnapshot.child("CONTROLLING").child("RTC").child("tgl1").child("tahun").getValue();
+                masaInkubasi = tanggalPembalikan[0]+"/"+tanggalPembalikan[1]+"/"+tanggalPembalikan[2];
+
+                namaInkubasiView.setText(namaInkubasi);
+                tanggalInkubasiView.setText(masaInkubasi);
+                Log.i("CARDVIEW","Nama : "+ namaInkubasi);
+                Log.i("CARDVIEW", "Masa Inkubasi : "+masaInkubasi);
+
+                if(namaInkubasi.equals("")){
+                    incubatedEggCardView.setVisibility(View.INVISIBLE);
+                } else {
+                    incubatedEggCardView.setVisibility(View.VISIBLE);
+                    /*CardView*/
+                    incubatedEggCardView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent completeIncubation = new Intent(getApplicationContext(), CompleteIncubation.class);
+                            startActivity(completeIncubation);
+                        }
+                    });
+                    /*CardView*/
+                }
 
             }
 
@@ -88,9 +135,50 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        mRecyclerView=(RecyclerView)findViewById(R.id.inkubasiRecyclerView);
+        Query cardViewTempRef = myRef.child("MONITORING").child("DHT").child("temperature").orderByKey().limitToLast(1);
+        cardViewTempRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                Map<String, String> mapTemp = (Map) dataSnapshot.getValue();
+                String key = String.valueOf(mapTemp.keySet());
+                String sub = key.substring(1, 21);
+                temp = mapTemp.get(sub);
+                Log.i("TEST", "onDataChange: "+temp);
+                tempInkubatorView.setText(temp);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        Query cardViewMoistRef = myRef.child("MONITORING").child("DHT").child("humidity").orderByKey().limitToLast(1);
+        cardViewMoistRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Map<String, String> mapMoist = (Map) dataSnapshot.getValue();
+                String key = String.valueOf(mapMoist.keySet());
+                String sub = key.substring(1, 21);
+                moist = mapMoist.get(sub);
+                Log.i("TEST", "onDataChange: "+moist);
+                moistInkubatorView.setText(moist);
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+        //mRecyclerView=(RecyclerView)findViewById(R.id.inkubasiRecyclerView);
         //mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         /*CardView sebagai tombol untuk membuka tampilan incubation form*/
         CardView addIncubationCardView = (CardView) findViewById(R.id.addIncubationCardView);
@@ -98,7 +186,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 try {
-                    if (test.equals("")){
+                    if (namaInkubasi.equals("")){
                         Intent startIntent = new Intent(getApplicationContext(), IncubationForm.class);
                         startActivity(startIntent);
 
@@ -113,6 +201,10 @@ public class MainActivity extends AppCompatActivity
         /*CardView*/
 
 
+
+
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -121,7 +213,7 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        fetch();
+        //fetch();
     }
 
     public void ok(){
@@ -151,17 +243,19 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    @Override
+   /* @Override
     protected void onStart() {
         super.onStart();
         mAdapter.startListening();
-    }
+    }*/
 
 
-    private void fetch(){
+    /*private void fetch(){
+        Query query = myRef.child("CONTROLLING");
+
         FirebaseRecyclerOptions<IncubationData> options =
                 new FirebaseRecyclerOptions.Builder<IncubationData>()
-                        .setQuery(myRef, IncubationData.class)
+                        .setQuery(query, IncubationData.class)
                         .build();
 
         mAdapter = new FirebaseRecyclerAdapter<IncubationData, MainActivity.IncubationViewHolder>(options) {
@@ -179,8 +273,10 @@ public class MainActivity extends AppCompatActivity
             @Override
             protected void onBindViewHolder(@NonNull MainActivity.IncubationViewHolder incubationViewHolder, final int position, @NonNull final IncubationData incubationData) {
                 //location = mAdapter.getRef(position).getKey();
-                incubationViewHolder.setNamaInkubasi(incubationData.getNamaInkubasi());
-                incubationViewHolder.setTanggalInkubasi(incubationData.getTanggalInkubasi());
+                incubationViewHolder.setNamaInkubasi(String.valueOf(incubationData.getNamaInkubasi()));
+                incubationViewHolder.setTanggalInkubasi(String.valueOf(incubationData.getTanggalInkubasi()));
+                incubationViewHolder.setTempInkubasi(String.valueOf(incubationData.getMaxTemp()));
+                incubationViewHolder.setMoistInkubasi(String.valueOf(incubationData.getMoist()));
                 incubationViewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -194,36 +290,53 @@ public class MainActivity extends AppCompatActivity
             }
         };
         mRecyclerView.setAdapter(mAdapter);
-    }
+    }*/
 
-    public static class IncubationViewHolder extends RecyclerView.ViewHolder{
+    /*public static class IncubationViewHolder extends RecyclerView.ViewHolder{
         public View mView;
         CardView cardView;
+        public TextView post_nama;
+        public TextView post_tanggal;
+        public TextView post_temp;
+        public TextView post_moist;
+
 
         public IncubationViewHolder(View itemView){
             super(itemView);
             mView=(itemView);
             this.mView = mView;
             this.cardView= (CardView) mView.findViewById(R.id.incubatedEggCardView);
+            post_nama = (TextView) mView.findViewById(R.id.namaInkubasiTextView);
+            post_tanggal = (TextView) mView.findViewById(R.id.tanggalInkubasiTextView);
+            post_temp = (TextView) mView.findViewById(R.id.tempInkubatorTextView);
+            post_moist = (TextView) mView.findViewById(R.id.moistInkubatorTextView);
+
         }
 
         public void setNamaInkubasi(String namaInkubasi){
-            TextView post_nama = (TextView) mView.findViewById(R.id.namaInkubasiTextView);
             post_nama.setText(namaInkubasi);
         }
 
         public void setTanggalInkubasi(String tanggalInkubasi){
-            TextView post_Temp = (TextView) mView.findViewById(R.id.tanggalInkubasiTextView);
-            post_Temp.setText(tanggalInkubasi);
+
+            post_tanggal.setText(tanggalInkubasi);
         }
-    }
+
+        public void setTempInkubasi(String tempInkubasi){
+            post_temp.setText(tempInkubasi);
+        }
+
+        public void setMoistInkubasi(String moistInkubasi){
+            post_temp.setText(moistInkubasi);
+        }
+    }*/
 
 
-    @Override
+   /* @Override
     protected void onStop() {
         super.onStop();
         mAdapter.stopListening();
-    }
+    }*/
 
     @Override
     public void onBackPressed() {
@@ -268,13 +381,14 @@ public class MainActivity extends AppCompatActivity
             Intent incubationScreen = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(incubationScreen);
         } else if (id == R.id.nav_profile) {
-            Intent profileScreen = new Intent(getApplicationContext(), ProfileActivity.class);
-            startActivity(profileScreen);
+            Intent resultScreen = new Intent(getApplicationContext(), ResultActivity.class);
+            startActivity(resultScreen);
         } else if (id == R.id.nav_slideshow) {
             Intent completeIncubation = new Intent(getApplicationContext(), CompleteIncubation.class);
             startActivity(completeIncubation);
         } else if (id == R.id.nav_manage) {
-
+            Intent editIncubation = new Intent(getApplicationContext(), EditAndDeleteInkubasi.class);
+            startActivity(editIncubation);
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
