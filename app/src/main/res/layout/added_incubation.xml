@@ -25,47 +25,101 @@
             android:id="@+id/namaInkubasiTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_toEndOf="@+id/gambarUnggas"
-            android:layout_toRightOf="@+id/gambarUnggas"
-            android:text="@string/nama" />
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="@string/nama"
+            android:textColor="#000000" />
 
         <TextView
             android:id="@+id/tempInkubatorTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tanggalInkubasiTextView"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:layout_marginTop="8dp"
-            android:layout_toEndOf="@+id/gambarUnggas"
-            android:layout_toRightOf="@+id/gambarUnggas"
-            android:text="@string/temp" />
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="@string/temp"
+            android:textColor="#000000" />
 
         <TextView
             android:id="@+id/moistInkubatorTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tempInkubatorTextView"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:layout_marginTop="8dp"
-            android:layout_toEndOf="@+id/gambarUnggas"
-            android:layout_toRightOf="@+id/gambarUnggas"
-            android:text="@string/moist" />
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="@string/moist"
+            android:textColor="#000000" />
 
         <TextView
             android:id="@+id/tanggalInkubasiTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/namaInkubasiTextView"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="@string/tanggal_inkubasi"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/textView21"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView22"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:layout_toEndOf="@+id/gambarUnggas"
             android:layout_toRightOf="@+id/gambarUnggas"
-            android:text="@string/t_incubation" />
+            android:text="@string/tanggalCV" />
+
+        <TextView
+            android:id="@+id/textView22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="2dp"
+            android:layout_toEndOf="@+id/gambarUnggas"
+            android:layout_toRightOf="@+id/gambarUnggas"
+            android:text="@string/namaCV" />
+
+        <TextView
+            android:id="@+id/textView23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView21"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@+id/gambarUnggas"
+            android:layout_toRightOf="@+id/gambarUnggas"
+            android:text="@string/tempCV" />
+
+        <TextView
+            android:id="@+id/textView24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView23"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@+id/gambarUnggas"
+            android:layout_toRightOf="@+id/gambarUnggas"
+            android:text="@string/moistCV" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

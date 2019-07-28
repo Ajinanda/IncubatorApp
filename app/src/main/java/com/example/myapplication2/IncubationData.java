@@ -1,5 +1,7 @@
 package com.example.myapplication2;
 
+import android.util.Log;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,6 +33,8 @@ public class IncubationData {
         this.jadwal = jadwal;
         this.tanggalPembalikan = tanggalPembalikan;
     }
+
+
 
     public String getNamaInkubasi() {
         return namaInkubasi;
@@ -128,6 +132,19 @@ public class IncubationData {
         this.tanggalPembalikan = tanggalPembalikan;
     }
 
+    public IncubationData(String namaInkubasi, String jenisUnggas, long jumlahTelur, long masaInkubasi, long masaMembalikTelur, long minTemp, long maxTemp, long moist, long[][] jadwal, long[][] tanggalPembalikan) {
+        this.namaInkubasi = namaInkubasi;
+        this.jenisUnggas = jenisUnggas;
+        this.jumlahTelur = jumlahTelur;
+        this.masaInkubasi = masaInkubasi;
+        this.masaMembalikTelur = masaMembalikTelur;
+        this.minTemp = minTemp;
+        this.maxTemp = maxTemp;
+        this.moist = moist;
+        this.jadwal = jadwal;
+        this.tanggalPembalikan = tanggalPembalikan;
+    }
+
     /**
      * <h1>Fungsi Profile Data</h1>
      * Constructor ini digunakan untuk menentukan data inkubasi apa yang akan
@@ -137,14 +154,15 @@ public class IncubationData {
      */
 
 
+
     public Map<String, Object> inkubasiMap(){
         HashMap<String, Object> inkubasi = new HashMap<>();
         inkubasi.put("jumlahTelur", jumlahTelur);
         inkubasi.put("namaInkubasi", namaInkubasi);
-        inkubasi.put("rotationCycle", siklusPembalikanTelur);
         inkubasi.put("timeIncubation", masaInkubasi);
         inkubasi.put("timeRotation", masaMembalikTelur);
         inkubasi.put("unggas", jenisUnggas);
+        Log.i("InkubasiMap", "InkubasiMap: Test Map");
         return inkubasi;
     }
 
@@ -153,6 +171,7 @@ public class IncubationData {
         atursuhu.put("maxsuhu", maxTemp);
         atursuhu.put("minlembab", moist);
         atursuhu.put("minsuhu", minTemp);
+        Log.i("InkubasiMap", "AtursuhuMap: Test Map");
         return atursuhu;
     }
 
@@ -170,6 +189,7 @@ public class IncubationData {
         rtc.put("/tgl2/tanggal",tanggalPembalikan[1][0]);
         rtc.put("/tgl2/bulan",tanggalPembalikan[1][1]);
         rtc.put("/tgl2/tahun",tanggalPembalikan[1][2]);
+        Log.i("InkubasiMap", "rtcMap: Test Map");
         return rtc;
     }
 

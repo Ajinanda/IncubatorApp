@@ -80,7 +80,6 @@ public class IncubationForm extends AppCompatActivity {
         jumlahTelurEditText = (EditText) findViewById(R.id.jumlahTelurEditText);
         masaInkubasiEditText = (EditText) findViewById(R.id.masaInkubasiEditText);
         masaMembalikTelurEditText = (EditText) findViewById(R.id.masaMembalikTelurEditText);
-        siklusPembalikanTelurEditText = (EditText) findViewById(R.id.siklusPembalikanTelurEditText);
         minTempEditText = (EditText) findViewById(R.id.minTempEditText);
         maxTempEditText = (EditText) findViewById(R.id.maxTempEditText);
         moistEditText = (EditText) findViewById(R.id.moistEditText);
@@ -137,13 +136,12 @@ public class IncubationForm extends AppCompatActivity {
                     jumlahTelur = Long.valueOf(jumlahTelurEditText.getText().toString());
                     masaInkubasi = Long.valueOf(masaInkubasiEditText.getText().toString());
                     masaMembalikTelur = Long.valueOf(masaMembalikTelurEditText.getText().toString());
-                    siklusPembalikanTelur = Long.valueOf(siklusPembalikanTelurEditText.getText().toString());
                     minTemp = Long.valueOf(minTempEditText.getText().toString());
                     maxTemp = Long.valueOf(maxTempEditText.getText().toString());
                     moist = Long.valueOf(moistEditText.getText().toString());
                     /*Memasukkan data dari form kedalam variable*/
 
-                    IncubationData startIncubation = new IncubationData(namaInkubasi, jenisUnggas, jumlahTelur, masaInkubasi, masaMembalikTelur, siklusPembalikanTelur, minTemp, maxTemp, moist, jadwal, tanggalPembalikan);
+                    IncubationData startIncubation = new IncubationData(namaInkubasi, jenisUnggas, jumlahTelur, masaInkubasi, masaMembalikTelur, minTemp, maxTemp, moist, jadwal, tanggalPembalikan);
                     myRef.child("Atursuhu").updateChildren(startIncubation.atursuhuMap());
                     myRef.child("Inkubasi").updateChildren(startIncubation.inkubasiMap());
                     myRef.child("RTC").updateChildren(startIncubation.rtcMap());
@@ -237,9 +235,10 @@ public class IncubationForm extends AppCompatActivity {
                 dpd = new DatePickerDialog(IncubationForm.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        tanggalAwalPembalikanEditText.setText(dayOfMonth + "/"+month+"/"+year);
+                        int m =month+1;
+                        tanggalAwalPembalikanEditText.setText(dayOfMonth + "/"+m+"/"+year);
                         tanggalPembalikan[0][0]= dayOfMonth;
-                        tanggalPembalikan[0][1]= month;
+                        tanggalPembalikan[0][1]= month+1;
                         tanggalPembalikan[0][2]= year;
                     }
                 }, year, month, day);
@@ -261,9 +260,10 @@ public class IncubationForm extends AppCompatActivity {
                 dpd = new DatePickerDialog(IncubationForm.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        tanggalAkhirPembalikanEditText.setText(dayOfMonth + "/"+month+"/"+year);
+                        int m =month+1;
+                        tanggalAkhirPembalikanEditText.setText(dayOfMonth + "/"+m+"/"+year);
                         tanggalPembalikan[1][0]= dayOfMonth;
-                        tanggalPembalikan[1][1]= month;
+                        tanggalPembalikan[1][1]= month+1;
                         tanggalPembalikan[1][2]= year;
                     }
                 }, year, month, day);
