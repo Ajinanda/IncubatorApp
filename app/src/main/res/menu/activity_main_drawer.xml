@@ -8,31 +8,6 @@
             android:id="@+id/nav_incubation"
             android:icon="@drawable/ic_menu_camera"
             android:title="Inkubasi" />
-        <item
-            android:id="@+id/nav_profile"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Profil Unggas" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
     </group>
-
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
-        </menu>
-    </item>
 
 </menu>

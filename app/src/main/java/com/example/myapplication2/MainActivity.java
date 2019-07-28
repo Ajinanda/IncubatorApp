@@ -93,9 +93,11 @@ public class MainActivity extends AppCompatActivity
         gambarUnggas.setImageResource(R.drawable.ic_egg);
 
         mDatabase = FirebaseDatabase.getInstance();
-        mDatabase.setPersistenceEnabled(true);
+        //mDatabase.setPersistenceEnabled(true);
         myRef = mDatabase.getReference();
         myRef.keepSynced(true);
+
+        incubatedEggCardView.setVisibility(View.INVISIBLE);
 
         Query namaInkubasiRef = myRef;
         namaInkubasiRef.addValueEventListener(new ValueEventListener() {
