@@ -3,8 +3,8 @@
 <br>
 Anggota Kelompok :
 <br>(C030316088) - Ajinanda Nugraha Putra
-<br>(----------) - 
-<br>(----------) - 
+<br>(C030316102) - Muhammad Bayustira Hermadana Putra
+<br>(C030316046) - Muhammad Haris Ansari
 
 # Progress
 
