@@ -3,6 +3,7 @@ package com.example.myapplication2;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -13,6 +14,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,6 +29,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 /**
  *<h1>Layar Form Inkubasi</h1>
@@ -99,31 +102,6 @@ public class IncubationForm extends AppCompatActivity {
         /*memanggil DatePickerDialog dan TimePickerDialog*/
 
 
-        /*DatePickerDialog
-        final Spinner jenisUnggasSpinner = (Spinner) findViewById(R.id.jenisUnggasSpinner);
-        databaseReference.child("Profile").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                final List<String> Profiles = new ArrayList<String>();
-
-                for (DataSnapshot profileSnapshoot: dataSnapshot.getChildren()){
-                    String name = profileSnapshoot.child("name").getValue(String.class);
-                    Profiles.add(name);
-                }
-
-                ArrayAdapter<String> profilesAdapter = new ArrayAdapter<String>(IncubationForm.this, android.R.layout.simple_spinner_item, Profiles);
-                profilesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                jenisUnggasSpinner.setAdapter(profilesAdapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });*/
-
-
-
         /*Button untuk memulai proses inkubasi*/
         Button buttonStartIncubation = (Button) findViewById(R.id.buttonStartIncubation);
         buttonStartIncubation.setOnClickListener(new View.OnClickListener() {
@@ -147,6 +125,7 @@ public class IncubationForm extends AppCompatActivity {
                     myRef.child("RTC").updateChildren(startIncubation.rtcMap());
                     Intent startIntent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(startIntent);
+
                 } catch(Exception e) {
 
                 }
@@ -154,6 +133,37 @@ public class IncubationForm extends AppCompatActivity {
             }
         });
         /*Button*/
+    }
+
+    private void okValidation(){
+        toastMessage("Edit Canceled");
+    }
+
+
+    public void customDialog(String title, String message, final String okMethod){
+        final AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
+        builderSingle.setTitle(title);
+        builderSingle.setMessage(message);
+
+
+
+        builderSingle.setPositiveButton(
+                "OK",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        if(okMethod.equals("okValidation")){
+                            okValidation();
+                        }
+                    }
+                });
+
+
+        builderSingle.show();
+    }
+
+    public void toastMessage(String message){
+        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
     }
 
     /*Timepicker Untuk Memasukkan Jadwal Pertama Pemutaran Telur*/

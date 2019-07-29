@@ -382,19 +382,9 @@ public class MainActivity extends AppCompatActivity
             // Handle the camera action
             Intent incubationScreen = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(incubationScreen);
-        } else if (id == R.id.nav_profile) {
+        } else if (id == R.id.nav_result) {
             Intent resultScreen = new Intent(getApplicationContext(), ResultActivity.class);
             startActivity(resultScreen);
-        } else if (id == R.id.nav_slideshow) {
-            Intent completeIncubation = new Intent(getApplicationContext(), CompleteIncubation.class);
-            startActivity(completeIncubation);
-        } else if (id == R.id.nav_manage) {
-            Intent editIncubation = new Intent(getApplicationContext(), EditAndDeleteInkubasi.class);
-            startActivity(editIncubation);
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

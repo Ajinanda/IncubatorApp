@@ -10,14 +10,12 @@ public class InsertFirebase {
     public String gagal;
     public String masaInkubasi;
 
-    public InsertFirebase(String namaInkubasi, String jenisUnggas, String tanggalMulaiInkubasi, String tanggalAkhirInkubasi, String jumlahTelur, String menetas, String gagal, String masaInkubasi) {
+    public InsertFirebase(String namaInkubasi, String jenisUnggas, String tanggalMulaiInkubasi, String tanggalAkhirInkubasi, String jumlahTelur, String masaInkubasi) {
         this.namaInkubasi = namaInkubasi;
         this.jenisUnggas = jenisUnggas;
         this.tanggalMulaiInkubasi = tanggalMulaiInkubasi;
         this.tanggalAkhirInkubasi = tanggalAkhirInkubasi;
         this.jumlahTelur = jumlahTelur;
-        this.menetas = menetas;
-        this.gagal = gagal;
         this.masaInkubasi = masaInkubasi;
     }
 

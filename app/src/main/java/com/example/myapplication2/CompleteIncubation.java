@@ -182,10 +182,8 @@ public class CompleteIncubation extends AppCompatActivity {
         String tmInkubasi = (String) dataTanggal.getText();
         String taInkubasi = df.format(c);
         String jTelur = (String) dataJumlahTelur.getText();
-        String menetas = "";
-        String gagal = "";
         String mInkubasi = (String) dataMasaInkubasi.getText();
-        addResult(nama, unggas, tmInkubasi, taInkubasi, jTelur, menetas, gagal, mInkubasi);
+        addResult(nama, unggas, tmInkubasi, taInkubasi, jTelur, mInkubasi);
 
         clearFirebase();
 
@@ -212,9 +210,9 @@ public class CompleteIncubation extends AppCompatActivity {
 
     }
 
-    private  void addResult(String namaInkubasi, String jenisUnggas, String tanggalMulaiInkubasi, String tanggalAkhirInkubasi,  String jumlahTelur,  String menetas,  String gagal, String masaInkubasi){
+    private  void addResult(String namaInkubasi, String jenisUnggas, String tanggalMulaiInkubasi, String tanggalAkhirInkubasi,  String jumlahTelur, String masaInkubasi){
 
-        InsertFirebase insert = new InsertFirebase(namaInkubasi,  jenisUnggas,  tanggalMulaiInkubasi,  tanggalAkhirInkubasi,  jumlahTelur,  menetas,  gagal,  masaInkubasi);
+        InsertFirebase insert = new InsertFirebase(namaInkubasi,  jenisUnggas,  tanggalMulaiInkubasi,  tanggalAkhirInkubasi, jumlahTelur, masaInkubasi);
         myRef.child("Result").push().setValue(insert);
     }
 

@@ -2,11 +2,16 @@ package com.example.myapplication2;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
@@ -46,6 +51,7 @@ public class ResultActivity extends AppCompatActivity {
     private String tanggalMulai;
     private String tanggalSelesai;
     private String jumlahTelur;
+    private String waktuInkubasi;
     private String berhasilMenetas;
     private String gagalMenetas;
 
@@ -56,9 +62,12 @@ public class ResultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
-
+        setTitle("Riwayat Inkubasi");
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
         mDatabase = FirebaseDatabase.getInstance();
         myRef = mDatabase.getReference();
+
 
         resultTable = (TableLayout) findViewById(R.id.resultTable);
 
@@ -71,16 +80,51 @@ public class ResultActivity extends AppCompatActivity {
                     namaInkubasi = (String) ds.child("namaInkubasi").getValue();
                     jenisUnggas = (String) ds.child("jenisUnggas").getValue();
                     tanggalMulai = (String) ds.child("tanggalMulaiInkubasi").getValue();
-                    tanggalSelesai = (String) ds.child("tanggalAkhirInkubasi").getValue();
+                    waktuInkubasi = (String) ds.child("masaInkubasi").getValue();
                     jumlahTelur = (String) ds.child("jumlahTelur").getValue();
-                    berhasilMenetas = (String) ds.child("menetas").getValue();
-                    gagalMenetas = (String) ds.child("gagal").getValue();
+                    //berhasilMenetas = (String) ds.child("menetas").getValue();
+                   // gagalMenetas = (String) ds.child("gagal").getValue();
 
+                    tbRow = new TableRow(getApplicationContext());
+                    tv0 = new TextView(getApplicationContext());
+                    tv0.setText(namaInkubasi);
+                    tv0.setTextColor(Color.BLACK);
+                    tv0.setGravity(Gravity.LEFT);
+                    tv0.setPadding(0,0,20,0);
+                    tbRow.addView(tv0);
+                    tv1 = new TextView(getApplicationContext());
+                    tv1.setText(jenisUnggas);
+                    tv1.setTextColor(Color.BLACK);
+                    tv1.setGravity(Gravity.LEFT);
+                    tv1.setPadding(0,0,20,0);
+                    tbRow.addView(tv1);
+                    tv2 = new TextView(getApplicationContext());
+                    tv2.setText(tanggalMulai);
+                    tv2.setTextColor(Color.BLACK);
+                    tv2.setGravity(Gravity.LEFT);
+                    tv2.setPadding(0,0,20,0);
+                    tbRow.addView(tv2);
+                    tv3 = new TextView(getApplicationContext());
+                    tv3.setText(waktuInkubasi);
+                    tv3.setTextColor(Color.BLACK);
+                    tv3.setGravity(Gravity.RIGHT);
+                    tv3.setPadding(0,0,20,0);
+                    tbRow.addView(tv3);
+                    tv4 = new TextView(getApplicationContext());
+                    tv4.setText(jumlahTelur);
+                    tv4.setTextColor(Color.BLACK);
+                    tv4.setGravity(Gravity.RIGHT);
+                    tv4.setPadding(0,0,20,0);
+                    tbRow.addView(tv4);
+                    /*tv5 = new TextView(getApplicationContext());
+                    tv5.setText("Menetas");
+                    tbRow.addView(tv5);
+                    tv6 = new TextView(getApplicationContext());
+                    tv6.setText("Gagal");
+                    tbRow.addView(tv6);*/
+                    resultTable.addView(tbRow);
 
-                    TextView a = (TextView) findViewById(R.id.a);
-                    a.setText(namaInkubasi);
-
-                    Log.i("Test Output", "Result Activity : "+namaInkubasi+"/"+jenisUnggas+"/"+tanggalMulai+"/"+tanggalSelesai+"/"+jumlahTelur+"/"+berhasilMenetas+"/"+gagalMenetas+"/");
+                    Log.i("Test Output", "Result Activity : "+namaInkubasi+"/"+jenisUnggas+"/"+tanggalMulai+"/"+tanggalSelesai+"/"+jumlahTelur);
                 }
 
             }
@@ -91,40 +135,13 @@ public class ResultActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
     }
 
-
-    public void init(){
-
-
-        resultTable = (TableLayout) findViewById(R.id.resultTable);
-        tbRow = new TableRow(this);
-        tv0 = new TextView(this);
-        tv0.setText("Nama");
-        tbRow.addView(tv0);
-        tv1 = new TextView(this);
-        tv1.setText("Unggas");
-        tbRow.addView(tv1);
-        tv2 = new TextView(this);
-        tv2.setText("Mulai");
-        tbRow.addView(tv2);
-        tv3 = new TextView(this);
-        tv3.setText("Selesai");
-        tbRow.addView(tv3);
-        tv4 = new TextView(this);
-        tv4.setText("Telur");
-        tbRow.addView(tv4);
-        tv5 = new TextView(this);
-        tv5.setText("Menetas");
-        tbRow.addView(tv5);
-        tv6 = new TextView(this);
-        tv6.setText("Gagal");
-        tbRow.addView(tv6);
-
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent myIntent = new Intent(getApplicationContext(),MainActivity.class);
+        startActivityForResult(myIntent,0);
+        return true;
     }
+
 }
