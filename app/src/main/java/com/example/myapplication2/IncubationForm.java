@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -44,14 +45,10 @@ public class IncubationForm extends AppCompatActivity {
     private FirebaseDatabase mDatabase;
     private DatabaseReference myRef;
     private EditText namaInkubasiEditText;
-    private EditText jenisUnggasEditText;
     private EditText jumlahTelurEditText;
-    private EditText masaInkubasiEditText;
-    private EditText masaMembalikTelurEditText;
-    private EditText siklusPembalikanTelurEditText;
-    private EditText minTempEditText;
-    private EditText maxTempEditText;
-    private EditText moistEditText;
+    private Spinner minTempSpinner;
+    private Spinner maxTempSpinner;
+    private Spinner moistSpinner;
     private EditText jadwalPertamaEditText;
     private EditText jadwalKeduaEditText;
     private EditText jadwalKetigaEditText;
@@ -61,7 +58,7 @@ public class IncubationForm extends AppCompatActivity {
     DatePickerDialog dpd;
     TimePickerDialog tpd;
     String namaInkubasi, jenisUnggas;
-    long jumlahTelur, masaInkubasi, masaMembalikTelur, siklusPembalikanTelur,
+    long jumlahTelur, masaInkubasi, masaMembalikTelur,
             minTemp, maxTemp, moist;
     long[][] jadwal = new long[3][2];
     long[][] tanggalPembalikan = new long[2][3];
@@ -79,19 +76,22 @@ public class IncubationForm extends AppCompatActivity {
 
         /*Memanggil EditText dari form XML*/
         namaInkubasiEditText = (EditText) findViewById(R.id.namaInkubasiEditText);
-        jenisUnggasEditText = (EditText) findViewById(R.id.jenisUnggasEditText);
         jumlahTelurEditText = (EditText) findViewById(R.id.jumlahTelurEditText);
-        masaInkubasiEditText = (EditText) findViewById(R.id.masaInkubasiEditText);
-        masaMembalikTelurEditText = (EditText) findViewById(R.id.masaMembalikTelurEditText);
-        minTempEditText = (EditText) findViewById(R.id.minTempEditText);
-        maxTempEditText = (EditText) findViewById(R.id.maxTempEditText);
-        moistEditText = (EditText) findViewById(R.id.moistEditText);
+        minTempSpinner = (Spinner) findViewById(R.id.minTempSpinner);
+        maxTempSpinner = (Spinner) findViewById(R.id.maxTempSpinner);
+        moistSpinner = (Spinner) findViewById(R.id.moistSpinner);
         jadwalPertamaEditText = (EditText) findViewById(R.id.jadwalPertamaEditText);
         jadwalKeduaEditText = (EditText) findViewById(R.id.jadwalKeduaEditText);
         jadwalKetigaEditText = (EditText) findViewById(R.id.jadwalKetigaEditText);
         tanggalAwalPembalikanEditText = (EditText) findViewById(R.id.tanggalAwalPembalikanEditText);
         tanggalAkhirPembalikanEditText = (EditText) findViewById(R.id.tanggalAkhirPembalikanEditText);
         /*Memanggil EditText dari form XML*/
+
+        /*memanggil spinner temp dan moist value*/
+        minTempSpinner.setAdapter(spinnerMinTempValue());
+        maxTempSpinner.setAdapter(spinnerMaxTempValue());
+        moistSpinner.setAdapter(spinnerMoistValue());
+        /*memanggil spinner temp value*/
 
         /*memanggil DatePickerDialog dan TimePickerDialog*/
         jadwalPertama();
@@ -102,6 +102,8 @@ public class IncubationForm extends AppCompatActivity {
         /*memanggil DatePickerDialog dan TimePickerDialog*/
 
 
+
+
         /*Button untuk memulai proses inkubasi*/
         Button buttonStartIncubation = (Button) findViewById(R.id.buttonStartIncubation);
         buttonStartIncubation.setOnClickListener(new View.OnClickListener() {
@@ -110,21 +112,28 @@ public class IncubationForm extends AppCompatActivity {
                 try{
                     /*Memasukkan data dari form kedalam variable*/
                     namaInkubasi = namaInkubasiEditText.getText().toString();
-                    jenisUnggas = jenisUnggasEditText.getText().toString();
+                    jenisUnggas = "Ayam";
                     jumlahTelur = Long.valueOf(jumlahTelurEditText.getText().toString());
-                    masaInkubasi = Long.valueOf(masaInkubasiEditText.getText().toString());
-                    masaMembalikTelur = Long.valueOf(masaMembalikTelurEditText.getText().toString());
-                    minTemp = Long.valueOf(minTempEditText.getText().toString());
-                    maxTemp = Long.valueOf(maxTempEditText.getText().toString());
-                    moist = Long.valueOf(moistEditText.getText().toString());
+                    masaInkubasi = 21L;
+                    masaMembalikTelur = 18L;
+                    minTemp = Long.valueOf(minTempSpinner.getSelectedItem().toString());
+                    maxTemp = Long.valueOf(maxTempSpinner.getSelectedItem().toString());
+                    moist = Long.valueOf(moistSpinner.getSelectedItem().toString());
                     /*Memasukkan data dari form kedalam variable*/
 
-                    IncubationData startIncubation = new IncubationData(namaInkubasi, jenisUnggas, jumlahTelur, masaInkubasi, masaMembalikTelur, minTemp, maxTemp, moist, jadwal, tanggalPembalikan);
-                    myRef.child("Atursuhu").updateChildren(startIncubation.atursuhuMap());
-                    myRef.child("Inkubasi").updateChildren(startIncubation.inkubasiMap());
-                    myRef.child("RTC").updateChildren(startIncubation.rtcMap());
-                    Intent startIntent = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(startIntent);
+                    /*memastikan max temp lebih dari min temp*/
+                    if (maxTemp <= minTemp) {
+                        customDialog("Tidak Dapat Memulai Inkubasi","Max Temperatur tidak boleh kurang dari atau sama dengan Min Temperatur minTemp ="+minTemp+", maxTemp = "+maxTemp,"okValidation");
+                        Log.i("Temp Err", "Max Temp tidak boleh sama atau kurang dari Min Temp : minTemp ="+minTemp+", maxTemp = "+maxTemp);
+                    } else if (maxTemp > minTemp) {
+                        IncubationData startIncubation = new IncubationData(namaInkubasi, jenisUnggas, jumlahTelur, masaInkubasi, masaMembalikTelur, minTemp, maxTemp, moist, jadwal, tanggalPembalikan);
+                        myRef.child("Atursuhu").updateChildren(startIncubation.atursuhuMap());
+                        myRef.child("Inkubasi").updateChildren(startIncubation.inkubasiMap());
+                        myRef.child("RTC").updateChildren(startIncubation.rtcMap());
+                        Intent startIntent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(startIntent);
+                    }
+                    /*memastikan max temp lebih dari min temp*/
 
                 } catch(Exception e) {
 
@@ -135,8 +144,48 @@ public class IncubationForm extends AppCompatActivity {
         /*Button*/
     }
 
+    private ArrayAdapter<Integer> spinnerMinTempValue(){
+        final List<Integer> temp = new ArrayList<Integer>();
+        for (int i = 25; i <= 39; i++){
+            int add = i;
+            temp.add(add);
+        }
+        ArrayAdapter<Integer> tempValueAdapter =
+                new ArrayAdapter<Integer>(IncubationForm.this, android.R.layout.simple_spinner_item, temp);
+        tempValueAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        return tempValueAdapter;
+    }
+
+    private ArrayAdapter<Integer> spinnerMaxTempValue(){
+        final List<Integer> temp = new ArrayList<Integer>();
+        for (int i = 26; i <= 40; i++){
+            int add = i;
+            temp.add(add);
+        }
+        ArrayAdapter<Integer> tempValueAdapter =
+                new ArrayAdapter<Integer>(IncubationForm.this, android.R.layout.simple_spinner_item, temp);
+        tempValueAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        return tempValueAdapter;
+    }
+
+    private ArrayAdapter<Integer> spinnerMoistValue(){
+        final List<Integer> moist = new ArrayList<Integer>();
+        for (int i = 40; i <= 90; i+=5){
+            int add = i;
+            moist.add(add);
+
+        }
+        ArrayAdapter<Integer> moistValueAdapter =
+                new ArrayAdapter<Integer>(IncubationForm.this, android.R.layout.simple_spinner_item, moist);
+        moistValueAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        return moistValueAdapter;
+    }
+
     private void okValidation(){
-        toastMessage("Edit Canceled");
+        toastMessage("Temperatur Salah");
     }
 
 
