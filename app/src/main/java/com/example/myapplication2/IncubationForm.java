@@ -23,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -109,34 +110,61 @@ public class IncubationForm extends AppCompatActivity {
         buttonStartIncubation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try{
-                    /*Memasukkan data dari form kedalam variable*/
-                    namaInkubasi = namaInkubasiEditText.getText().toString();
-                    jenisUnggas = "Ayam";
-                    jumlahTelur = Long.valueOf(jumlahTelurEditText.getText().toString());
-                    masaInkubasi = 21L;
-                    masaMembalikTelur = 18L;
-                    minTemp = Long.valueOf(minTempSpinner.getSelectedItem().toString());
-                    maxTemp = Long.valueOf(maxTempSpinner.getSelectedItem().toString());
-                    moist = Long.valueOf(moistSpinner.getSelectedItem().toString());
-                    /*Memasukkan data dari form kedalam variable*/
+                try {
 
-                    /*memastikan max temp lebih dari min temp*/
-                    if (maxTemp <= minTemp) {
-                        customDialog("Tidak Dapat Memulai Inkubasi","Max Temperatur tidak boleh kurang dari atau sama dengan Min Temperatur minTemp ="+minTemp+", maxTemp = "+maxTemp,"okValidation");
-                        Log.i("Temp Err", "Max Temp tidak boleh sama atau kurang dari Min Temp : minTemp ="+minTemp+", maxTemp = "+maxTemp);
-                    } else if (maxTemp > minTemp) {
-                        IncubationData startIncubation = new IncubationData(namaInkubasi, jenisUnggas, jumlahTelur, masaInkubasi, masaMembalikTelur, minTemp, maxTemp, moist, jadwal, tanggalPembalikan);
-                        myRef.child("Atursuhu").updateChildren(startIncubation.atursuhuMap());
-                        myRef.child("Inkubasi").updateChildren(startIncubation.inkubasiMap());
-                        myRef.child("RTC").updateChildren(startIncubation.rtcMap());
-                        Intent startIntent = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(startIntent);
+                    String a,b,c,d,e,f,g,h,i,j,k,l;
+                    a=namaInkubasiEditText.getText().toString();
+                    b="Ayam";
+                    c=jumlahTelurEditText.getText().toString();
+                    d=minTempSpinner.getSelectedItem().toString();
+                    e=maxTempSpinner.getSelectedItem().toString();
+                    f=moistSpinner.getSelectedItem().toString();
+                    g=jadwalPertamaEditText.getText().toString();
+                    h=jadwalKeduaEditText.getText().toString();
+                    i=jadwalKetigaEditText.getText().toString();
+                    j=tanggalAwalPembalikanEditText.getText().toString();
+                    k=tanggalAkhirPembalikanEditText.getText().toString();
+
+                    /*memastikan semua form sudah terisi*/
+                    if(a.equals("")||b.equals("")||c.equals("")||d.equals("")||e.equals("")||f.equals("")||g.equals("")||h.equals("")||i.equals("")||j.equals("")||k.equals("")){
+                        customDialog("Tidak Dapat Memulai Inkubasi", "Pastikan semua form telah diisi sebelum menekan tombol Mulai Inkubasi", "formValidation");
+
+
+                    } else {
+                        /*Memasukkan data dari form kedalam variable*/
+                        namaInkubasi = namaInkubasiEditText.getText().toString();
+                        jenisUnggas = "Ayam";
+                        jumlahTelur = Long.valueOf(jumlahTelurEditText.getText().toString());
+                        masaInkubasi = 21L;
+                        masaMembalikTelur = 18L;
+                        minTemp = Long.valueOf(minTempSpinner.getSelectedItem().toString());
+                        maxTemp = Long.valueOf(maxTempSpinner.getSelectedItem().toString());
+                        moist = Long.valueOf(moistSpinner.getSelectedItem().toString());
+                        /*Memasukkan data dari form kedalam variable*/
+
+
+
+                        /*memastikan max temp lebih dari min temp*/
+                        if (maxTemp <= minTemp) {
+                            customDialog("Tidak Dapat Memulai Inkubasi","Max Temperatur tidak boleh kurang dari atau sama dengan Min Temperatur minTemp ="+minTemp+", maxTemp = "+maxTemp,"okValidation");
+                            Log.i("Temp Err", "Max Temp tidak boleh sama atau kurang dari Min Temp : minTemp ="+minTemp+", maxTemp = "+maxTemp);
+                        } else if (maxTemp > minTemp) {
+                            IncubationData startIncubation = new IncubationData(namaInkubasi, jenisUnggas, jumlahTelur, masaInkubasi, masaMembalikTelur, minTemp, maxTemp, moist, jadwal, tanggalPembalikan);
+                            myRef.child("Atursuhu").updateChildren(startIncubation.atursuhuMap());
+                            myRef.child("Inkubasi").updateChildren(startIncubation.inkubasiMap());
+                            myRef.child("RTC").updateChildren(startIncubation.rtcMap());
+                            Intent startIntent = new Intent(getApplicationContext(), MainActivity.class);
+                            startActivity(startIntent);
+                        }
+                        /*memastikan max temp lebih dari min temp*/
                     }
-                    /*memastikan max temp lebih dari min temp*/
+                    /*memastikan semua form sudah terisi*/
 
-                } catch(Exception e) {
 
+
+
+                } catch (Exception e) {
+                    Log.i("Exception", "onClick: Exception onClick");
                 }
 
             }
@@ -188,6 +216,10 @@ public class IncubationForm extends AppCompatActivity {
         toastMessage("Temperatur Salah");
     }
 
+    private void formValidation(){
+        toastMessage("Form Tidak Terisi Dengan Benar");
+    }
+
 
     public void customDialog(String title, String message, final String okMethod){
         final AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
@@ -203,6 +235,16 @@ public class IncubationForm extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int i) {
                         if(okMethod.equals("okValidation")){
                             okValidation();
+                        }
+                    }
+                });
+        builderSingle.setPositiveButton(
+                "OK",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        if(okMethod.equals("formValidation")){
+                            formValidation();
                         }
                     }
                 });

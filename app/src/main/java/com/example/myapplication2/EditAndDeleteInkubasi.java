@@ -224,32 +224,48 @@ public class EditAndDeleteInkubasi extends AppCompatActivity {
     private void okEdit(){
         try{
 
-            Log.i("Test2", "okEdit: Test Ok Edit Button");
-            /*Memasukkan data dari form kedalam variable*/
-            namaInkubasi = namaInkubasiEditText.getText().toString();
-            jenisUnggas = "Ayam";
-            jumlahTelur = Long.valueOf(jumlahTelurEditText.getText().toString());
-            masaInkubasi = 21L;
-            masaMembalikTelur = 18L;
-            minTemp = Long.valueOf(minTempSpinner.getSelectedItem().toString());
-            maxTemp = Long.valueOf(maxTempSpinner.getSelectedItem().toString());
-            moist = Long.valueOf(moistSpinner.getSelectedItem().toString());
-            /*Memasukkan data dari form kedalam variable*/
+            String a,b,c,d,e,f,g,h,i,j,k,l;
+            a=namaInkubasiEditText.getText().toString();
+            b="Ayam";
+            c=jumlahTelurEditText.getText().toString();
+            d=minTempSpinner.getSelectedItem().toString();
+            e=maxTempSpinner.getSelectedItem().toString();
+            f=moistSpinner.getSelectedItem().toString();
+            g=jadwalPertamaEditText.getText().toString();
+            h=jadwalKeduaEditText.getText().toString();
+            i=jadwalKetigaEditText.getText().toString();
+            j=tanggalAwalPembalikanEditText.getText().toString();
+            k=tanggalAkhirPembalikanEditText.getText().toString();
+            if (a.equals("")||b.equals("")||c.equals("")||d.equals("")||e.equals("")||f.equals("")||g.equals("")||h.equals("")||i.equals("")||j.equals("")||k.equals("")){
+                customDialog2("Tidak Dapat Memulai Inkubasi", "Pastikan semua form telah diisi sebelum menekan tombol Edit", "formValidation");
+            } else {
+                /*Memasukkan data dari form kedalam variable*/
+                namaInkubasi = namaInkubasiEditText.getText().toString();
+                jenisUnggas = "Ayam";
+                jumlahTelur = Long.valueOf(jumlahTelurEditText.getText().toString());
+                masaInkubasi = 21L;
+                masaMembalikTelur = 18L;
+                minTemp = Long.valueOf(minTempSpinner.getSelectedItem().toString());
+                maxTemp = Long.valueOf(maxTempSpinner.getSelectedItem().toString());
+                moist = Long.valueOf(moistSpinner.getSelectedItem().toString());
+                /*Memasukkan data dari form kedalam variable*/
 
-            if (maxTemp <= minTemp){
-                customDialog2("Tidak Dapat Memulai Inkubasi","Max Temperatur tidak boleh kurang dari atau sama dengan Min Temperatur minTemp ="+minTemp+", maxTemp = "+maxTemp,"okValidation");
+                if (maxTemp <= minTemp){
+                    customDialog2("Tidak Dapat Memulai Inkubasi","Max Temperatur tidak boleh kurang dari atau sama dengan Min Temperatur minTemp ="+minTemp+", maxTemp = "+maxTemp,"okValidation");
+                }
+
+
+                Log.i("Test3", "okEdit: Test Getting edittext value into Variable");
+                IncubationData startIncubation = new IncubationData(namaInkubasi, jenisUnggas, jumlahTelur, masaInkubasi, masaMembalikTelur, minTemp, maxTemp, moist, jadwal, tanggalPembalikan);
+                myRef.child("Atursuhu").updateChildren(startIncubation.atursuhuMap());
+                myRef.child("Inkubasi").updateChildren(startIncubation.inkubasiMap());
+                myRef.child("RTC").updateChildren(startIncubation.rtcMap());
+
+                Intent startIntent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(startIntent);
+                toastMessage("Incubation Data Edited");
             }
 
-
-            Log.i("Test3", "okEdit: Test Getting edittext value into Variable");
-            IncubationData startIncubation = new IncubationData(namaInkubasi, jenisUnggas, jumlahTelur, masaInkubasi, masaMembalikTelur, minTemp, maxTemp, moist, jadwal, tanggalPembalikan);
-            myRef.child("Atursuhu").updateChildren(startIncubation.atursuhuMap());
-            myRef.child("Inkubasi").updateChildren(startIncubation.inkubasiMap());
-            myRef.child("RTC").updateChildren(startIncubation.rtcMap());
-
-            Intent startIntent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(startIntent);
-            toastMessage("Incubation Data Edited");
         } catch (Exception e){
 
         }
@@ -265,6 +281,10 @@ public class EditAndDeleteInkubasi extends AppCompatActivity {
             e.printStackTrace();
         }
 
+    }
+
+    private void formValidation(){
+        toastMessage("Form Tidak Terisi Dengan Benar");
     }
 
     private void okValidation(){
@@ -330,6 +350,17 @@ public class EditAndDeleteInkubasi extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int i) {
                         if(okMethod.equals("okValidation")){
                             okValidation();
+                        }
+                    }
+                });
+
+        builderSingle.setPositiveButton(
+                "OK",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        if(okMethod.equals("formValidation")){
+                            formValidation();
                         }
                     }
                 });
